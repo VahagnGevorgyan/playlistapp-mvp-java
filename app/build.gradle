@@ -1,0 +1,216 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: 'org.greenrobot.greendao'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url 'https://maven.google.com' }
+    google()
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.playlistapp"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        archivesBaseName = "PlaylistApp-$versionName"
+        vectorDrawables.useSupportLibrary = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFile 'proguard-rules.pro'
+            }
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def date = new Date()
+                    def formattedDate = date.format('yyyyMMddHHmmss')
+                    outputFileName = "${variant.name.replace("-release", "-" + formattedDate)}-${variant.versionName}.apk"
+                }
+            }
+
+            buildConfigField("String", "BASE_URL", "\"http://onex.am/mobiapi/v2/\"")
+        }
+
+        debug {
+            minifyEnabled false
+            buildConfigField("String", "BASE_URL", "\"http://onex.am/mobiapi/v2/\"")
+        }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE'
+        pickFirst 'META-INF/DEPENDENCIES'
+        pickFirst 'META-INF/NOTICE'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    afterEvaluate {
+        tasks.matching {
+            it.name.startsWith('dex')
+        }.each { dx ->
+            if (dx.additionalParameters == null) {
+                dx.additionalParameters = []
+            }
+            dx.additionalParameters += "--set-max-idx-number=55000"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility = rootProject.ext.targetCompatibilityVersion
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force "com.android.support:support-annotations:$deps.supportLibraryVersion"
+    }
+}
+
+greendao {
+    schemaVersion 1
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    // Architecture components
+    implementation rootProject.ext.deps.roomRuntime
+    implementation rootProject.ext.deps.liveData
+    annotationProcessor rootProject.ext.deps.lifeCycleCompiler
+    implementation rootProject.ext.deps.roomRuntime
+    annotationProcessor rootProject.ext.deps.roomCompiler
+
+//    // Android Testing Support Library's runner and rules
+//    androidTestImplementation rootProject.ext.deps.roomTest
+
+    compile rootProject.ext.deps.supportLibrary
+    compile rootProject.ext.deps.supportCompat
+    compile rootProject.ext.deps.supportv4
+    compile rootProject.ext.deps.supportv13
+    compile rootProject.ext.deps.supportRecyclerView
+    compile rootProject.ext.deps.supportDesign
+    compile rootProject.ext.deps.supportPercent
+    compile rootProject.ext.deps.supportCardView
+    compile rootProject.ext.deps.supportConstraint
+
+
+    // Dependencies for local unit tests
+    testCompile rootProject.ext.deps.junit
+    testCompile rootProject.ext.deps.mockwebserver
+    testCompile rootProject.ext.deps.mockitoAll
+    testCompile rootProject.ext.deps.hamcrestAll
+    testCompile rootProject.ext.deps.powermockModuleJunit
+    testCompile rootProject.ext.deps.powermockApiMockito
+    testCompile rootProject.ext.deps.mockitoCore
+    testAnnotationProcessor rootProject.ext.deps.daggerCompiler
+
+    // Android Testing Support Library's runner and rules
+    androidTestCompile rootProject.ext.deps.supportTestRunner
+    androidTestCompile rootProject.ext.deps.supportTestRules
+
+    // Espresso UI Testing dependencies.
+    androidTestCompile rootProject.ext.deps.espresso
+    androidTestCompile rootProject.ext.deps.espressoContrib
+    androidTestCompile rootProject.ext.deps.espressoIntents
+    androidTestCompile rootProject.ext.deps.mockitoCore
+    androidTestAnnotationProcessor rootProject.ext.deps.daggerCompiler
+    androidTestCompile(rootProject.ext.deps.espressoContrib) {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile('com.squareup.okhttp3:mockwebserver:3.6.0') {
+        exclude module: 'okio'
+        exclude module: 'okhttp'
+    }
+
+
+    compile(rootProject.ext.deps.crashlytics) {
+        transitive = true;
+    }
+    compile(rootProject.ext.deps.crashlyticsAnswers) {
+        transitive = true;
+    }
+
+    compile rootProject.ext.deps.otto
+
+    compile rootProject.ext.deps.timber
+
+    compile rootProject.ext.deps.butterknife
+    annotationProcessor rootProject.ext.deps.butterknifeCompiler
+
+    compile rootProject.ext.deps.rxandroid
+    compile rootProject.ext.deps.rxjava
+    compile rootProject.ext.deps.rxNetwork
+
+    compile  rootProject.ext.deps.retrofit
+    compile  rootProject.ext.deps.gsonConverter
+    compile  rootProject.ext.deps.retrofitAdapter
+    compile  rootProject.ext.deps.gson
+
+    compile  rootProject.ext.deps.okhttp3
+    compile  rootProject.ext.deps.okhttp3urlConnection
+    compile  rootProject.ext.deps.logging
+    compile  rootProject.ext.deps.okio
+
+    compile rootProject.ext.deps.dagger
+    annotationProcessor rootProject.ext.deps.daggerCompiler
+    provided rootProject.ext.deps.javaAnnotation
+
+    compile rootProject.ext.deps.greenDao
+
+    compile rootProject.ext.deps.googleGcm
+    compile rootProject.ext.deps.googleAnalytics
+
+    compile rootProject.ext.deps.glide
+    annotationProcessor rootProject.ext.deps.glideannotationProcessor
+
+    compile rootProject.ext.deps.calligraphyVersion
+
+    compile rootProject.ext.deps.circleimageview
+    compile rootProject.ext.deps.shortcutBadger
+
+    compile group: 'com.nineoldandroids', name: 'library', version: '2.4.0'
+    compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.2'
+}
+
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+        mavenCentral()
+    }
+
+    dependencies {
+        // These docs use an open ended version so that our plugin
+        // can be updated quickly in response to Android tooling updates
+
+        // We recommend changing it to the latest version from our changelog:
+        // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
+        classpath 'io.fabric.tools:gradle:1.22.0'
+    }
+}

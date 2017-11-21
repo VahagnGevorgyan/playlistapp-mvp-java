@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.playlistapp"
+    android:installLocation="auto">
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true"/>
+
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        android:required="false"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:name=".App"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.NoTitleBar">
+
+        <activity android:name=".ui.splash.SplashActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:keepScreenOn="true"
+            android:noHistory="true"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.home.HomeActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter android:label="@string/filter_title_app">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "https://onex.am/” -->
+                <data android:scheme="http"
+                    android:host="@string/filter_uri_app"/>
+            </intent-filter>
+        </activity>
+
+        <!--<activity
+            android:name=".ui.onboarding.OnBoardingActivity"
+            android:theme="@style/AppTheme"/>-->
+
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1ef1f2f6eaf4a14366d82a5ce3cced118c32f2cf" />
+    </application>
+
+</manifest>

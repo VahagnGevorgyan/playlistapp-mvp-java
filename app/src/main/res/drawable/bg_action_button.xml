@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/action_background">
+
+    <stroke
+        android:width="@dimen/action_button_stroke_width"
+        android:color="@color/action_button_selector"/>
+
+    <padding
+        android:bottom="@dimen/action_button_vertical_padding"
+        android:left="@dimen/action_button_horizontal_padding"
+        android:right="@dimen/action_button_horizontal_padding"
+        android:top="@dimen/action_button_vertical_padding"/>
+
+    <solid android:color="@color/transparent"/>
+</shape>

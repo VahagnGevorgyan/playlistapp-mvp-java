@@ -1,0 +1,67 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Off-Line content -->
+    <style name="OfflinePopupBackground">
+        <item name="android:background">@color/popup_background_dark_transparent</item>
+    </style>
+
+    <style name="OfflinePopupContainer">
+        <item name="android:background">@color/popup_background</item>
+    </style>
+
+    <style name="OfflinePopupTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/popup_small_padding</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/popup_title_size</item>
+    </style>
+
+    <style name="OfflinePopupLine">
+        <item name="android:layout_marginBottom">@dimen/popup_big_padding</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="OfflinePopupMessage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/popup_message_color</item>
+        <item name="android:textSize">@dimen/popup_message_size</item>
+    </style>
+
+    <style name="OfflinePopupProgressMessage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/popup_big_padding</item>
+        <item name="android:textColor">@color/popup_progress_message_color</item>
+        <item name="android:textSize">@dimen/popup_message_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+</resources>

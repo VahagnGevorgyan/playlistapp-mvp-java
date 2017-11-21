@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:onex="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.playlistapp.ui.home.tracks.TracksFragment">
+
+    <com.playlistapp.ui.view.CustomTextView
+        android:id="@+id/textViewNoTracks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/tracks_text_drawable_padding"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textColor="#bbbbbb"
+        android:textSize="14sp"
+        android:text="@string/tracks_no_items"
+        android:visibility="gone"
+        onex:app_font="fonts/arial.ttf"
+        tools:text="Info message"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/tracksPullToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewTracks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/layoutCost"
+            android:layout_alignParentTop="true"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:groupIndicator="@null"
+            android:overScrollMode="never"
+            android:paddingTop="16dp"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:indeterminateDrawable="@drawable/progress_bar_back"
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

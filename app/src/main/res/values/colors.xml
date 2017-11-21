@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#AA009688</color>
+    <color name="colorPrimaryDark">#fe009688</color>
+    <color name="colorAccent">#6680cbc4</color>
+
+    <color name="black_effective">#2a2a2a</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="grey_dark">#A9A9A9</color>
+
+    <color name="transparent">#00ffffff</color>
+
+    <color name="disabled_color">#44000000</color>
+    <color name="error_color">#E7492E</color>
+    <color name="red">#f44336</color>
+
+    <!-- Off-Line content -->
+    <color name="popup_background">#ffffff</color>
+    <color name="popup_background_dark_transparent">#80000000</color>
+    <color name="popup_title_color">#678300</color>
+    <color name="popup_line_color">#678300</color>
+    <color name="popup_message_color">#000000</color>
+    <color name="popup_progress_message_color">#a6babe</color>
+    <color name="popup_button_color">#678300</color>
+    <color name="button_popup_background">#f4a900</color>
+    <color name="button_popup_title">#f9fbfc</color>
+</resources>

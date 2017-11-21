@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">PlaylistApp</string>
+    <string name="filter_title_app">play list app</string>
+    <string name="filter_uri_app">https://www.apple.com/itunes/</string>
+
+    <string name="path_uri">android.resource://%1$s/%2$d</string>
+
+    <!-- App Message -->
+    <string name="api_retry_error">Please retry!</string>
+    <string name="api_default_error">Something wrong happened!</string>
+    <string name="some_error">Some Error Occurred!</string>
+    <string name="connection_error">Internet connection lost!</string>
+    <string name="dialog_ok">OK</string>
+
+    <!-- HOME -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- MENU -->
+    <string name="menu_tracks">My Tracks</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_about">About</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_communicate">Communicate</string>
+
+    <!-- POPUP -->
+    <string name="popup_offline_title">Info</string>
+    <string name="popup_offline_message">Sorry, no Internet connectivity detected. Please reconnect and try again.</string>
+    <string name="popup_offline_retry">Retry</string>
+
+    <!-- TRACKS -->
+    <string name="tracks_no_items">No tracks yet!</string>
+
+
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:onex="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutToast"
+    android:orientation="vertical"
+    android:background="@drawable/toast_background"
+    android:paddingTop="11dp"
+    android:paddingBottom="11dp"
+    android:paddingLeft="30dp"
+    android:paddingStart="30dp"
+    android:paddingRight="30dp"
+    android:paddingEnd="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.onex.ui.view.CustomTextView
+        android:id="@+id/textViewToast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        tools:text="@string/str_required"
+        android:textSize="16sp"
+        onex:app_font="fonts/arial.ttf"/>
+
+</LinearLayout>
