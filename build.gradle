@@ -1,0 +1,131 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.0-alpha03'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
+    }
+    // Exclude the version that the android plugin depends on.
+    configurations.classpath.exclude group: 'com.android.tools.external.lombok'
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    minSdkVersion = 15
+    targetSdkVersion = 25
+    compileSdkVersion = 26
+    buildToolsVersion = '26.0.2'
+
+    sourceCompatibilityVersion = JavaVersion.VERSION_1_8
+    targetCompatibilityVersion = JavaVersion.VERSION_1_8
+}
+
+def supportLibraryVersion = '25.3.1'
+def butterKnifeLatestReleaseVersion = '8.5.1'
+def glideVersion = '4.3.0'
+def greenDaoVersion = '3.2.0'
+def junitVersion = '4.12'
+def mockitoVersion = '1.10.19'
+def powerMockito = '1.6.2'
+def hamcrestVersion = '1.3'
+def runnerVersion = '0.5'
+def rulesVersion = '0.5'
+def espressoVersion = '2.2.2'
+def roomVersion = '1.0.0-rc1'
+ext.deps = [
+        supportLibraryVersion       :   supportLibraryVersion,
+
+        supportLibrary              :   "com.android.support:appcompat-v7:$supportLibraryVersion",
+        supportAnnontations         :   "com.android.support:support-annontations:$supportLibraryVersion",
+        supportRecyclerView         :   "com.android.support:recyclerview-v7:$supportLibraryVersion",
+        supportDesign               :   "com.android.support:design:$supportLibraryVersion",
+        supportPercent              :   "com.android.support:percent:$supportLibraryVersion",
+        supportCardView             :   "com.android.support:cardview-v7:$supportLibraryVersion",
+        supportCompat               :   "com.android.support:support-compat:$supportLibraryVersion",
+        supportv4                   :   "com.android.support:support-v4:$supportLibraryVersion",
+        supportv13                  :   "com.android.support:support-v13:$supportLibraryVersion",
+        supportConstraint           :   "com.android.support.constraint:constraint-layout:1.0.0-alpha8",
+
+        roomCompiler                :   "android.arch.persistence.room:compiler:$roomVersion",
+        lifeCycleCompiler           :   "android.arch.lifecycle:compiler:$roomVersion",
+        roomRxJava                  :   "android.arch.persistence.room:rxjava2:$roomVersion",
+        roomRuntime                 :   "android.arch.persistence.room:runtime:$roomVersion",
+        liveData                    :   "android.arch.lifecycle:extensions:$roomVersion",
+        roomTest                    :   "android.arch.persistence.room:testing:$roomVersion",
+
+        butterknife                 :   "com.jakewharton:butterknife:$butterKnifeLatestReleaseVersion",
+        butterknifeCompiler         :   "com.jakewharton:butterknife-compiler:$butterKnifeLatestReleaseVersion",
+
+        calligraphyVersion          :   'uk.co.chrisjenx:calligraphy:2.2.0',
+
+        retrofit                    :   'com.squareup.retrofit2:retrofit:2.1.0',
+        gsonConverter               :   'com.squareup.retrofit2:converter-gson:2.1.0',
+        retrofitAdapter             :   'com.squareup.retrofit2:adapter-rxjava2:2.3.0',
+        gson                        :   'com.google.code.gson:gson:2.7',
+
+        okhttp3                     :   'com.squareup.okhttp3:okhttp:3.8.0',
+        okhttp3urlConnection        :   'com.squareup.okhttp3:okhttp-urlconnection:3.8.0',
+        okio                        :   'com.squareup.okio:okio:1.6.0',
+
+        logging                     :   'com.squareup.okhttp3:logging-interceptor:3.8.0',
+        timber                      :   'com.jakewharton.timber:timber:4.5.1',
+
+        dagger                      :   'com.google.dagger:dagger:2.9',
+        daggerCompiler              :   'com.google.dagger:dagger-compiler:2.9',
+        javaAnnotation              :   'javax.annotation:jsr250-api:1.0',
+
+        otto                        :   'com.squareup:otto:1.3.8',
+
+        greenDao                    :   "org.greenrobot:greendao:$greenDaoVersion",
+
+        rxandroid                   :   'io.reactivex.rxjava2:rxandroid:2.0.1',
+        rxjava                      :   'io.reactivex.rxjava2:rxjava:2.0.1',
+        rxNetwork                   :   'com.github.pwittchen:reactivenetwork-rx2:0.12.1',
+
+        crashlytics                 :   'com.crashlytics.sdk.android:crashlytics:2.7.1@aar',
+        crashlyticsAnswers          :   'com.crashlytics.sdk.android:answers:1.3.11@aar',
+        fabricSdk                   :   'io.fabric.sdk.android:fabric:1.3.10@aar',
+
+        glide                       :   "com.github.bumptech.glide:glide:$glideVersion",
+        glideannotationProcessor    :   "com.github.bumptech.glide:compiler:$glideVersion",
+
+        multidex                    :   'com.android.support:multidex:1.0.1',
+
+        circleimageview             :   'de.hdodenhof:circleimageview:2.1.0',
+
+        shortcutBadger              :   'me.leolin:ShortcutBadger:1.1.2@aar',
+
+        googleGcm                   :   'com.google.android.gms:play-services-gcm:9.0.0',
+        googleAnalytics             :   'com.google.android.gms:play-services-analytics:9.0.0',
+
+
+        /* Tests related dependencies */
+        junit                       :   "junit:junit:$junitVersion",
+        espresso                    :   "com.android.support.test.espresso:espresso-core:$espressoVersion",
+        espressoContrib             :   "com.android.support.test.espresso:espresso-contrib:$espressoVersion",
+        espressoIntents             :   "com.android.support.test.espresso:espresso-intents:$espressoVersion",
+        supportTestRunner           :   "com.android.support.test:runner:$runnerVersion",
+        supportTestRules            :   "com.android.support.test:rules:$rulesVersion",
+        mockwebserver               :   'com.squareup.okhttp3:mockwebserver:3.8.0',
+        mockitoAll                  :   "org.mockito:mockito-all:$mockitoVersion",
+        mockitoCore                 :   "org.mockito:mockito-core:$mockitoVersion",
+        hamcrestAll                 :   "org.hamcrest:hamcrest-all:$hamcrestVersion",
+        powermockModuleJunit        :   "org.powermock:powermock-module-junit4:$powerMockito",
+        powermockApiMockito         :   "org.powermock:powermock-api-mockito:$powerMockito",
+
+]
