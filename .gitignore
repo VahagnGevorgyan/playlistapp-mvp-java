@@ -36,5 +36,8 @@ captures/
 .idea/
 *.iml
 
+# Fabric properties file
+fabric.properties
+
 __MACOSX
 .DS_Store
