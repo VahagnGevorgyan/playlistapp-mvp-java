@@ -2,10 +2,13 @@ package com.playlistapp.data;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.playlistapp.data.db.DbHelper;
 import com.playlistapp.data.db.model.Question;
 import com.playlistapp.data.network.api.ApiHelper;
+import com.playlistapp.data.network.data.track.TrackResData;
 import com.playlistapp.data.settings.AppSettingsHelper;
 import com.playlistapp.di.ApplicationContext;
 
@@ -51,15 +54,12 @@ public class AppDataManager implements DataManager {
         return mDbHelper;
     }
 
-//    @Override
-//    public Observable<List<CityItem>> doCitiesApiCall() {
-//        return mApiHelper.getCitiesList();
-//    }
+    @Override
+    public Observable<TrackResData> doTracksApiCall(@NonNull String country,
+                                                    @Nullable Integer limit) {
+        return mApiHelper.doTrackListCall(country, limit);
+    }
 
-//    @Override
-//    public Observable<LoginData> doLoginApiCall(LoginRequest req) {
-//        return mApiHelper.doLoginCall(req);
-//    }
 
     @Override
     public Observable<List<Question>> getAllQuestions() {

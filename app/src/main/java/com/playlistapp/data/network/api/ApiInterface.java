@@ -1,10 +1,12 @@
 package com.playlistapp.data.network.api;
 
 
+import com.playlistapp.data.network.data.track.TrackResponse;
+
 import io.reactivex.Observable;
 import retrofit2.Response;
-import retrofit2.http.Body;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 /**
@@ -12,28 +14,13 @@ import retrofit2.http.Url;
  */
 public interface ApiInterface {
 
-//    /**
-//     * Calls Login request.
-//     *
-//     * @param requestUrl
-//     * @param body
-//     * @return
-//     */
-//    @POST
-//    Observable<Response<LoginResponse>> callLoginApi(@Url String requestUrl,
-//                                                     @Body LoginRequest body);
-
-
-//    /**
-//     * Calls CitiesList request.
-//     *
-//     * @param requestUrl
-//     * @param body
-//     * @return
-//     */
-//    @POST
-//    Observable<Response<CityListApiResponse>> callCitiesListApi(@Url String requestUrl,
-//                                                                @Body Object body);
-
+    /**
+     * Calls TrackList request.
+     */
+    @GET
+    Observable<Response<TrackResponse>> callTrackListApi(@Url String requestUrl,
+                                                         @Query("country") String country,
+                                                         @Query("limit") Integer limit
+    );
 
 }

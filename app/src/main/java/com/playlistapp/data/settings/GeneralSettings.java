@@ -11,6 +11,14 @@ public class GeneralSettings extends BaseSettings {
         super(prefs);
     }
 
+    public int getTrackLimitCount() {
+        return getPrefs().getInt(AppPreferences.Settings.TRACK_LIMIT_COUNT.key(), 10);
+    }
+
+    public void setTrackLimitCount(int limitCount) {
+        getPrefs().setSetting(AppPreferences.Settings.TRACK_LIMIT_COUNT, limitCount);
+    }
+
     public String getSplashUrl() {
         return getPrefs().getString(AppPreferences.Settings.SPLASH_URL.key(), "");
     }

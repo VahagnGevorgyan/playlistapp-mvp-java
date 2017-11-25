@@ -12,29 +12,11 @@ public class Constants {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_FILE_NAME = "playlistapp.sqlite ";
 
+    public static final String FORMAT_WEB_SERVICE = "json";
+
     // ENDPOINT
-    public static final String ENDPOINT_CITIES_LIST = "account/listcities";
-    public static final String ENDPOINT_ORDERS_LIST = "account/orders";
-    public static final String ENDPOINT_LOGIN = "user/login";
-    public static final String ENDPOINT_REGISTER = "user/register";
-    public static final String ENDPOINT_REGISTER_PERSON = "user/registerperson";
-    public static final String ENDPOINT_REGISTER_COMPANY = "user/registercompany";
-    public static final String ENDPOINT_USER_INFO = "account/getuserinfo";
-    public static final String ENDPOINT_REG_ID = "account/sendregisterid";
-    public static final String ENDPOINT_RECIPIENT_LIST = "account/recipientlist";
-    public static final String ENDPOINT_ORDER_DETAILS = "account/order";
-    public static final String ENDPOINT_CURRENCIES = "account/currencies";
-    public static final String ENDPOINT_DECLARE_PRICE = "account/declareprice";
-    public static final String ENDPOINT_NOTIFICATIONS = "account/getnotifications";
-    public static final String ENDPOINT_ADDRESS = "account/addresses";
-    public static final String ENDPOINT_ADDRESS_DETAILS = "account/addressdetails";
-    public static final String ENDPOINT_OFFER = "account/gethotdeals";
-    public static final String ENDPOINT_OFFER_CATEGORY = "account/gethotdealscategories";
-    public static final String ENDPOINT_PICKUP_POINT = "account/pickuppoints";
-    public static final String ENDPOINT_RECIPIENT_EDIT = "account/recipientedit";
-    public static final String ENDPOINT_RECIPIENT_ADD = "account/recipientadd";
-    public static final String ENDPOINT_RECIPIENT_DELETE = "account/recipientdelete";
-    public static final String ENDPOINT_CHANGE_PASS = "account/changepassword";
+    public static final String ENDPOINT_API_BASE = "?api_key={api_key}&format={format}";
+    public static final String ENDPOINT_TRACK_LIST = "&method=geo.gettoptracks";
 
     // REQUEST NUMBERS
     private static final int CHANGE_IMAGE = 0;

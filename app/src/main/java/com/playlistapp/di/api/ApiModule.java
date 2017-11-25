@@ -39,8 +39,8 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    Session provideSession(@ApiUrl HttpUrl baseUrl) {
-        return new Session(baseUrl.toString());
+    Session provideSession(@ApiUrl HttpUrl baseUrl, @ApiInfo String apiKey) {
+        return new Session(baseUrl.toString(), apiKey);
     }
 
     @Provides
@@ -71,6 +71,12 @@ public class ApiModule {
     }
 
     @Provides
+    @ApiInfo
+    String provideApiKey() {
+        return BuildConfig.API_KEY;
+    }
+
+    @Provides
     HttpLoggingInterceptor provideHttpLoggingInterceptor() {
         final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
@@ -83,6 +89,7 @@ public class ApiModule {
     @Singleton
     Gson provideGson() {
         return new GsonBuilder()
+//                .registerTypeAdapter(TrackResponse.class, new TrackFeedDeserializer()) // TODO: For Test - Remove after test
                 .setLenient()
                 .create();
     }

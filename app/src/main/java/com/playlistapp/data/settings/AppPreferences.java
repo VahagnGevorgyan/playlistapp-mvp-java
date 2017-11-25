@@ -45,7 +45,9 @@ public class AppPreferences implements SharedPreferences {
         PROPERTY_APP_VERSION("PROPERTY_APP_VERSION", Integer.class),
         PUSH_COUNT("PUSH_COUNT", Integer.class),
         BADGE_COUNT("BADGE_COUNT", Integer.class),
-        CURRENCY_LIST("CURRENCY_LIST", String.class)
+        CURRENCY_LIST("CURRENCY_LIST", String.class),
+
+        TRACK_LIMIT_COUNT("TRACK_LIMIT_COUNT", Integer.class)
         ;
 
         private final String key;

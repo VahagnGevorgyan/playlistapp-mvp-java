@@ -1,9 +1,13 @@
 package com.playlistapp.data;
 
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.playlistapp.data.db.DbHelper;
 import com.playlistapp.data.db.model.Question;
 import com.playlistapp.data.network.api.ApiHelper;
+import com.playlistapp.data.network.data.track.TrackResData;
 import com.playlistapp.data.settings.AppSettingsHelper;
 
 import java.util.List;
@@ -18,10 +22,8 @@ public interface DataManager {
 
     DbHelper getDbHelper();
 
-//    Observable<List<CityItem>> doCitiesApiCall();
-
-//    Observable<LoginData> doLoginApiCall(LoginRequest req);
-
+    Observable<TrackResData> doTracksApiCall(@NonNull String country,
+                                             @Nullable Integer limit);
 
     Observable<List<Question>> getAllQuestions();
 

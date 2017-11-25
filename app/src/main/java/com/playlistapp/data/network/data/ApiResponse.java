@@ -36,7 +36,8 @@ public class ApiResponse extends ApiError implements Serializable {
     }
 
     public boolean isOk() {
-        return mMsg.isEmpty();
+//        return mMsg.isEmpty(); // TODO: Open after checking
+        return true;
     }
 
     @Override

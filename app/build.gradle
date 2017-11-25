@@ -45,12 +45,14 @@ android {
                 }
             }
 
-            buildConfigField("String", "BASE_URL", "\"http://onex.am/mobiapi/v2/\"")
+            buildConfigField("String", "BASE_URL", "\"http://ws.audioscrobbler.com/2.0/\"")
+            buildConfigField("String", "API_KEY", "\"56532a164dfe077a343683169bb3a201\"")
         }
 
         debug {
             minifyEnabled false
-            buildConfigField("String", "BASE_URL", "\"http://onex.am/mobiapi/v2/\"")
+            buildConfigField("String", "BASE_URL", "\"http://ws.audioscrobbler.com/2.0/\"")
+            buildConfigField("String", "API_KEY", "\"56532a164dfe077a343683169bb3a201\"")
         }
     }
 

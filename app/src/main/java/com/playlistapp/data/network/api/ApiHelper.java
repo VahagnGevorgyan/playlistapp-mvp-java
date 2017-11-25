@@ -1,11 +1,11 @@
 package com.playlistapp.data.network.api;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-
+import com.playlistapp.data.network.data.track.TrackResData;
+import com.playlistapp.data.network.data.track.TrackResponse;
 import com.playlistapp.data.network.session.Session;
-
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -52,59 +52,35 @@ public class ApiHelper {
         return mBaseUrl;
     }
 
-//    /**
-//     * Returns Login response.
-//     *
-//     * @return
-//     */
-//    @NonNull
-//    public Observable<LoginData> doLoginCall(LoginRequest request) {
-//        String url = mSession.getLoginServiceURL();
-//        Timber.d("Requesting Login web service with url: " + url);
-//
-//        return mApiService.callLoginApi(url, request)
-//                .flatMap(ApiMethods.validate())
-//                .flatMap(processLoginResponse());
-//    }
+    /**
+     * Returns Tracks response.
+     *
+     * @return
+     */
+    @NonNull
+    public Observable<TrackResData> doTrackListCall(@NonNull String country,
+                                                    @Nullable Integer limit) {
+        String url = mSession.getTrackListServiceURL();
+        Timber.d("Requesting Track List web service with url: " + url);
 
-//    /**
-//     * Returns Cities list.
-//     *
-//     * @return
-//     */
-//    @NonNull
-//    public Observable<List<CityItem>> getCitiesList() {
-//        String url = mSession.getCitiesListServiceURL();
-//        Timber.d("Requesting from the web service Cities List data: " + url);
-//
-//        return mApiService.callCitiesListApi(url, new Object())
-//                .flatMap(ApiMethods.validate())
-//                .flatMap(processCitiesListData());
-//    }
+        return mApiService.callTrackListApi(url, country, limit)
+                .flatMap(ApiMethods.validate())
+                .flatMap(processTrackListResponse());
+    }
 
 
 
     /*****************************************/
     // DIFFERENT WAYS OF PROCESSING RESULT
 
-//    /**
-//     * Processing received Login Response data.
-//     *
-//     * @return
-//     */
-//    private Function<LoginResponse, ObservableSource<LoginData>> processLoginResponse() {
-//        Timber.d("Processing received Login Response data");
-//        return result -> Observable.just(result.getData());
-//    }
-
-//    /**
-//     * Processing received Cities List data.
-//     *
-//     * @return
-//     */
-//    private Function<CityListApiResponse, ObservableSource<List<CityItem>>> processCitiesListData() {
-//        Timber.d("Processing received Cities List data");
-//        return result -> Observable.just(result.getData());
-//    }
+    /**
+     * Processing received Tracks List Response data.
+     *
+     * @return
+     */
+    private Function<TrackResponse, ObservableSource<TrackResData>> processTrackListResponse() {
+        Timber.d("Processing received Track List Response data");
+        return result -> Observable.just(result.getData());
+    }
 
 }

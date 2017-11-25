@@ -68,7 +68,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     private int rightLeftSpinnerPadding;
     private int minContentHeight;
 
-    //Properties about Error Label
+    //Properties about Error LabelAttributes
     private int lastPosition;
     private ObjectAnimator errorLabelAnimator;
     private int errorLabelPosX;
@@ -76,7 +76,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
     private float currentNbErrorLines;
 
 
-    //Properties about Floating Label (
+    //Properties about Floating LabelAttributes (
     private float floatingLabelPercent;
     private ObjectAnimator floatingLabelAnimator;
     private boolean isSelected;
@@ -403,7 +403,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
             int startYErrorLabel = startYLine + errorLabelSpacing + lineHeight;
             paint.setColor(errorColor);
             textPaint.setColor(errorColor);
-            //Error Label Drawing
+            //Error LabelAttributes Drawing
             if (multiline) {
                 canvas.save();
                 canvas.translate(startX + rightLeftSpinnerPadding, startYErrorLabel - errorLabelSpacing);
@@ -433,7 +433,7 @@ public class MaterialSpinner extends AppCompatSpinner implements ValueAnimator.A
         // Underline Drawing
         canvas.drawRect(startX, startYLine, endX, startYLine + lineHeight, paint);
 
-        //Floating Label Drawing
+        //Floating LabelAttributes Drawing
         if ((hint != null || floatingLabelText != null) && enableFloatingLabel) {
             if (isSelected || hasFocus()) {
                 textPaint.setColor(highlightColor);
