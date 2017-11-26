@@ -61,7 +61,7 @@ public class TrackItem {
         return mArtist;
     }
 
-    public List<Image> getImage() {
+    public List<Image> getImageList() {
         return mImageList;
     }
 

@@ -19,6 +19,9 @@ import com.playlistapp.ui.home.tracks.TracksPresenter;
 import com.playlistapp.ui.splash.SplashMvpPresenter;
 import com.playlistapp.ui.splash.SplashMvpView;
 import com.playlistapp.ui.splash.SplashPresenter;
+import com.playlistapp.ui.web.WebViewMvpPresenter;
+import com.playlistapp.ui.web.WebViewMvpView;
+import com.playlistapp.ui.web.WebViewPresenter;
 import com.playlistapp.utils.network.NetworkStateHelper;
 import com.playlistapp.utils.network.NetworkStateManager;
 
@@ -81,6 +84,13 @@ public class ActivityModule {
     @Provides
     TrackListAdapter provideTrackListAdapter(AppCompatActivity activity) {
         return new TrackListAdapter(activity);
+    }
+
+    @Provides
+    @PerActivity
+    WebViewMvpPresenter<WebViewMvpView> provideWebViewPresenter(
+            WebViewPresenter<WebViewMvpView> presenter) {
+        return presenter;
     }
 
 

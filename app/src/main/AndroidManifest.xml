@@ -50,9 +50,9 @@
             </intent-filter>
         </activity>
 
-        <!--<activity
-            android:name=".ui.onboarding.OnBoardingActivity"
-            android:theme="@style/AppTheme"/>-->
+        <activity
+            android:name=".ui.web.WebViewActivity"
+            android:theme="@style/AppTheme"/>
 
 
         <meta-data

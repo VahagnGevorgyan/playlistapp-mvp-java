@@ -30,10 +30,12 @@
             android:paddingTop="@dimen/activity_horizontal_margin">
 
             <ImageView
-                android:id="@+id/imageViewProduct"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:layout_centerHorizontal="true" />
+                android:id="@+id/imageViewTrack"
+                android:layout_below="@+id/textViewName"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null" />
 
             <ProgressBar
                 android:id="@+id/loadingBar"
@@ -43,14 +45,13 @@
                 android:layout_marginBottom="50dp" />
 
             <com.playlistapp.ui.view.CustomTextView
-                android:id="@+id/textViewDescription"
+                android:id="@+id/textViewDuration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageViewProduct"
+                android:layout_below="@+id/imageViewTrack"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="Register"
                 android:textAllCaps="false"
                 android:textColor="@color/colorEditTextNormal"
                 android:textSize="14sp"
@@ -58,25 +59,12 @@
                 tools:text="GoPro HERO3+ Silver Edition Camera" />
 
             <com.playlistapp.ui.view.CustomTextView
-                android:id="@+id/textViewSubDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewDescription"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="0dp"
-                android:gravity="center"
-                android:textAllCaps="false"
-                android:textColor="@color/colorEditTextNormal"
-                android:textSize="14sp"
-                app:app_font="fonts/arial.ttf"
-                tools:text="Manufacturer Refurbished" />
-
-            <com.playlistapp.ui.view.CustomTextView
-                android:id="@+id/textViewSite"
+                android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
+                android:layout_marginBottom="6dp"
                 android:textSize="18sp"
                 app:app_font="fonts/arial.ttf"
                 tools:text="Manufacturer Refurbished" />
@@ -93,12 +81,7 @@
         android:layout_marginRight="@dimen/dimen_track_item_green_layout_margin"
         android:layout_marginEnd="@dimen/dimen_track_item_green_layout_margin"
         android:layout_marginBottom="@dimen/dimen_track_item_green_layout_margin"
-        android:background="#a0ba3f">
-
-        <ImageView
-            android:id="@+id/imageViewFlag"
-            android:layout_width="80dp"
-            android:layout_height="match_parent" />
+        android:background="@color/colorPrimaryDark">
 
         <ImageView
             android:id="@+id/imageViewIncLineGreen"
@@ -109,13 +92,12 @@
             android:background="@drawable/bg_inline_green" />
 
         <com.playlistapp.ui.view.CustomTextView
-            android:id="@+id/textViewOldPrice"
+            android:id="@+id/textViewArtist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="100dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:gravity="center"
             android:textAllCaps="false"
             android:textColor="@color/white"
@@ -123,7 +105,7 @@
             app:app_font="fonts/arial.ttf" />
 
         <com.playlistapp.ui.view.CustomTextView
-            android:id="@+id/textViewNewPrice"
+            android:id="@+id/textViewArtistArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -131,7 +113,9 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="0dp"
+            android:text="@string/str_more"
+            android:drawableRight="@drawable/ic_forward"
+            android:drawableEnd="@drawable/ic_forward"
             android:gravity="center"
             android:textAllCaps="false"
             android:textColor="@color/white"

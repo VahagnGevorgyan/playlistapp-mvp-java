@@ -1,5 +1,6 @@
 package com.playlistapp.ui.home;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,13 +15,19 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.playlistapp.R;
+import com.playlistapp.eventbus.event.OpenWebViewEvent;
 import com.playlistapp.ui.base.BaseActivity;
 import com.playlistapp.ui.home.tracks.TracksFragment;
+import com.playlistapp.ui.web.WebViewActivity;
+import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import timber.log.Timber;
+
+import static com.playlistapp.Constants.EXTRA_WEB_TITLE;
+import static com.playlistapp.Constants.EXTRA_WEB_URL;
 
 /**
  * Home screen activity class.
@@ -159,5 +166,20 @@ public class HomeActivity extends BaseActivity
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
                 .replace(R.id.layoutMainContainer, TracksFragment.newInstance())
                 .commit();
+    }
+
+    @Subscribe
+    public void onOpenWebViewEvent(OpenWebViewEvent event) {
+        Timber.d("Trying to open \"Web view\" activity " + event.getWebUrl());
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra(EXTRA_WEB_URL, event.getWebUrl());
+        intent.putExtra(EXTRA_WEB_TITLE, event.getWebTitle());
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mPresenter.onDetach();
+        super.onDestroy();
     }
 }

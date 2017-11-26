@@ -5,6 +5,7 @@ import com.playlistapp.di.module.ActivityModule;
 import com.playlistapp.ui.home.HomeActivity;
 import com.playlistapp.ui.home.tracks.TracksFragment;
 import com.playlistapp.ui.splash.SplashActivity;
+import com.playlistapp.ui.web.WebViewActivity;
 import com.playlistapp.utils.network.NetworkStateManager;
 
 import dagger.Component;
@@ -19,6 +20,8 @@ public interface ActivityComponent {
     void inject(HomeActivity activity);
 
     void inject(TracksFragment fragment);
+
+    void inject(WebViewActivity activity);
 
 //    void inject(PersonRegFragment fragment);
 //

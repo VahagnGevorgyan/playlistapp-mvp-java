@@ -1,13 +1,9 @@
 package com.playlistapp.ui.adapter;
 
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +17,16 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.playlistapp.R;
+import com.playlistapp.data.network.data.track.Image;
 import com.playlistapp.data.network.data.track.TrackItem;
 import com.playlistapp.eventbus.SingletonBus;
+import com.playlistapp.eventbus.event.OpenWebViewEvent;
+import com.playlistapp.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
-
-import static com.playlistapp.Constants.IMAGE_URL;
 
 /**
  * Adapter class for track list.
@@ -70,72 +67,36 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
 
         TrackItem item = mList.get(position);
 
-//        if (item.getSite() != null) {
-//            Timber.d(":: TrackViewHolder.onBindViewHolder : item.getSite() : " + item.getSite());
-//            holder.textViewSite.setText(item.getSite());
-//        }
-//        if (!TextUtils.isEmpty(item.getImage())) {
-//            holder.loadingBar.setVisibility(View.VISIBLE);
-//            holder.imageViewProduct.setImageDrawable(null);
-//
-//            Glide
-//                    .with(mContext)
-//                    .load(IMAGE_URL + item.getImage())
-//                    .listener(new RequestListener<Drawable>() {
-//                        @Override
-//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//                            return false;
-//                        }
-//
-//                        @Override
-//                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//                            holder.loadingBar.setVisibility(View.INVISIBLE);
-//                            return false;
-//                        }
-//                    })
-//                    .into(holder.imageViewProduct);
-//        }
-//        if (item.getCurrency() != null) {
-//            switch (item.getCurrency()) {
-//                case "USD":
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-//                        holder.imageViewFlag.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_flag_usa_incline));
-//                    } else {
-//                        holder.imageViewFlag.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_flag_usa_incline));
-//                    }
-//                    break;
-//                case "GBP":
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-//                        holder.imageViewFlag.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_flag_gb_incline));
-//                    } else {
-//                        holder.imageViewFlag.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_flag_gb_incline));
-//                    }
-//                    break;
-//                case "RUR":
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-//                        holder.imageViewFlag.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ic_flag_ru_incline));
-//                    } else {
-//                        holder.imageViewFlag.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_flag_ru_incline));
-//                    }
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//        if(item.getOldprice() != null) {
-//            Timber.d(":: HotOffersRVAdapter.onBindViewHolder : item.getOldprice() : " + item.getOldprice());
-//            holder.textViewOldPrice.setText(item.getOldprice());
-//            holder.textViewOldPrice.setPaintFlags(holder.textViewOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//
-//        }
-//        if(item.getPrice() != null) {
-//            Timber.d(":: HotOffersRVAdapter.onBindViewHolder : item.getPrice() : " + item.getPrice());
-//            holder.textViewNewPrice.setText(item.getPrice());
-//        }
-//        if(item.getName() != null) {
-//            Timber.d(":: HotOffersRVAdapter.onBindViewHolder : item.getName() : " + item.getName());
-//            holder.textViewDescription.setText(item.getName());
-//        }
+        holder.textViewName.setText(item.getName());
+        holder.textViewArtist.setText(item.getArtist().getName());
+        if (StringUtils.isNotEmptySafe(item.getDuration())
+                && !item.getDuration().equals("0")) {
+            holder.textViewDuration.setText(mContext.getString(R.string.str_track_time, item.getDuration()));
+        }
+
+        for (Image img :
+                item.getImageList()) {
+            if (img.getSize().equals("large")) {
+                Glide
+                    .with(mContext)
+                    .load(img.getText())
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            holder.loadingBar.setVisibility(View.INVISIBLE);
+                            return false;
+                        }
+                    })
+                    .into(holder.imageViewTrack);
+                break;
+            }
+        }
+
 
     }
 
@@ -149,35 +110,26 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
 
     class TrackViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView textViewSite;
-        ImageView imageViewProduct;
-        ImageView imageViewFlag;
-        TextView textViewDescription;
-        TextView textViewSubDescription;
-        TextView textViewOldPrice;
-        TextView textViewNewPrice;
+        TextView textViewName;
+        ImageView imageViewTrack;
+        TextView textViewDuration;
+        TextView textViewArtist;
         ProgressBar loadingBar;
 
         TrackViewHolder(View itemView) {
             super(itemView);
-            textViewSite = (TextView) itemView.findViewById(R.id.textViewSite);
-            imageViewProduct = (ImageView) itemView.findViewById(R.id.imageViewProduct);
-            imageViewFlag = (ImageView) itemView.findViewById(R.id.imageViewFlag);
-            textViewDescription = (TextView) itemView.findViewById(R.id.textViewDescription);
-            textViewSubDescription = (TextView) itemView.findViewById(R.id.textViewSubDescription);
-            textViewOldPrice = (TextView) itemView.findViewById(R.id.textViewOldPrice);
-            textViewNewPrice = (TextView) itemView.findViewById(R.id.textViewNewPrice);
-            loadingBar = (ProgressBar) itemView.findViewById(R.id.loadingBar);
+            textViewName = itemView.findViewById(R.id.textViewName);
+            imageViewTrack = itemView.findViewById(R.id.imageViewTrack);
+            textViewDuration = itemView.findViewById(R.id.textViewDuration);
+            textViewArtist = itemView.findViewById(R.id.textViewArtist);
+            loadingBar = itemView.findViewById(R.id.loadingBar);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            // TODO: Open Track item
-//            SingletonBus.getInstance().post(new OpenWebViewEvent(
-//                    mList.get(getAdapterPosition()).getShopurl(),
-//                    mList.get(getAdapterPosition()).getShop()
-//            ));
+            SingletonBus.getInstance().post(
+                    new OpenWebViewEvent(mList.get(getAdapterPosition()).getUrl(), mList.get(getAdapterPosition()).getName()));
         }
     }
 }

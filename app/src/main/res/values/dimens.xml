@@ -42,5 +42,7 @@
     <dimen name="tracks_text_drawable_padding">5dp</dimen>
     <dimen name="dimen_track_item_margin">10dp</dimen>
     <dimen name="dimen_track_item_green_layout_margin">6dp</dimen>
+    <dimen name="dimen_toolbar_title_text_size">16sp</dimen>
+    <dimen name="dimen_shadow_height">4dp</dimen>
 
 </resources>

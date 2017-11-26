@@ -35,6 +35,10 @@
 
     <!-- TRACKS -->
     <string name="tracks_no_items">No tracks yet!</string>
+    <string name="str_more">More</string>
+    <string name="str_track_time">Duration: %1$s min.</string>
+    <string name="str_copied">Copied</string>
+    <string name="str_clipboard_message">copy</string>
 
 
 </resources>
