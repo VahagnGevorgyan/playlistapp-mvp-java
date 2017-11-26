@@ -16,6 +16,8 @@
     <color name="error_color">#E7492E</color>
     <color name="red">#f44336</color>
 
+    <color name="colorEditTextNormal">#9e9e9e</color>
+
     <!-- Off-Line content -->
     <color name="popup_background">#ffffff</color>
     <color name="popup_background_dark_transparent">#80000000</color>

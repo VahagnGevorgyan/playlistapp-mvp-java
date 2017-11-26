@@ -6,4 +6,6 @@ import com.playlistapp.ui.base.MvpPresenter;
 public interface TracksMvpPresenter<V extends TracksMvpView> extends MvpPresenter<V> {
 
     void loadTrackItems();
+
+    void nextTrackItems();
 }

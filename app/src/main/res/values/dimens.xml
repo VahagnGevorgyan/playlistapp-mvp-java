@@ -40,5 +40,7 @@
 
     <!-- Tracks -->
     <dimen name="tracks_text_drawable_padding">5dp</dimen>
+    <dimen name="dimen_track_item_margin">10dp</dimen>
+    <dimen name="dimen_track_item_green_layout_margin">6dp</dimen>
 
 </resources>

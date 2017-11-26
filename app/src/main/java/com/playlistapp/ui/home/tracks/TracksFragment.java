@@ -8,8 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.playlistapp.R;
+import com.playlistapp.data.network.data.track.TrackItem;
 import com.playlistapp.ui.adapter.TrackListAdapter;
 import com.playlistapp.ui.base.BaseFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,8 +30,8 @@ public class TracksFragment extends BaseFragment implements TracksMvpView {
     @Inject
     TracksMvpPresenter<TracksMvpView> mPresenter;
 
-//    @Inject
-//    TrackListAdapter mAdapter;
+    @Inject
+    TrackListAdapter mAdapter;
 
     @Inject
     LinearLayoutManager mLayoutManager;
@@ -37,6 +40,8 @@ public class TracksFragment extends BaseFragment implements TracksMvpView {
     RecyclerView mRecyclerViewTracks;
     @BindView(R.id.tracksPullToRefresh)
     SwipeRefreshLayout mTracksPullToRefresh;
+
+    boolean mIsLoading = false;
 
     public static TracksFragment newInstance() {
         Bundle args = new Bundle();
@@ -83,6 +88,43 @@ public class TracksFragment extends BaseFragment implements TracksMvpView {
     private void prepareTracksAdapter() {
         Timber.d("Preparing \"Tracks\" list view adapter");
         mRecyclerViewTracks.setLayoutManager(mLayoutManager);
-//        mRecyclerViewTracks.setAdapter(mAdapter);
+        mRecyclerViewTracks.setAdapter(mAdapter);
+        mRecyclerViewTracks.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(dy > 0) {
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+
+                    if (!mIsLoading && totalItemCount <= (lastVisibleItem + 5)) {
+                        mPresenter.nextTrackItems();
+                        mIsLoading = true;
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void updateTracks(List<TrackItem> trackItems) {
+        Timber.d("Updating track list items " + trackItems);
+        mTracksPullToRefresh.post(
+                () -> mTracksPullToRefresh.setRefreshing(false));
+        mAdapter.updateTrackList(trackItems);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void addTracks(List<TrackItem> trackItems) {
+        Timber.d("Adding new items to track list items " + trackItems);
+        mAdapter.addTrackList(trackItems);
+        mAdapter.notifyDataSetChanged();
+        mIsLoading = false;
+    }
+
+    @Override
+    public void onDestroyView() {
+        mPresenter.onDetach();
+        super.onDestroyView();
     }
 }

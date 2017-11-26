@@ -9,6 +9,7 @@ import com.playlistapp.data.scheduler.AppSchedulerProvider;
 import com.playlistapp.data.scheduler.SchedulerProvider;
 import com.playlistapp.di.ActivityContext;
 import com.playlistapp.di.PerActivity;
+import com.playlistapp.ui.adapter.TrackListAdapter;
 import com.playlistapp.ui.home.HomeMvpPresenter;
 import com.playlistapp.ui.home.HomeMvpView;
 import com.playlistapp.ui.home.HomePresenter;
@@ -77,10 +78,10 @@ public class ActivityModule {
         return presenter;
     }
 
-//    @Provides
-//    MenuItemAdapter provideMenuItemAdapter(AppCompatActivity activity) {
-//        return new MenuItemAdapter(activity);
-//    }
+    @Provides
+    TrackListAdapter provideTrackListAdapter(AppCompatActivity activity) {
+        return new TrackListAdapter(activity);
+    }
 
 
 //    @Provides
