@@ -59,11 +59,12 @@ public class ApiHelper {
      */
     @NonNull
     public Observable<TrackResData> doTrackListCall(@NonNull String country,
-                                                    @Nullable Integer limit) {
+                                                    @Nullable Integer limit,
+                                                    @Nullable Integer page) {
         String url = mSession.getTrackListServiceURL();
         Timber.d("Requesting Track List web service with url: " + url);
 
-        return mApiService.callTrackListApi(url, country, limit)
+        return mApiService.callTrackListApi(url, country, limit, page)
                 .flatMap(ApiMethods.validate())
                 .flatMap(processTrackListResponse());
     }

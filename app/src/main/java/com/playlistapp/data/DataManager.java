@@ -23,7 +23,8 @@ public interface DataManager {
     DbHelper getDbHelper();
 
     Observable<TrackResData> doTracksApiCall(@NonNull String country,
-                                             @Nullable Integer limit);
+                                             @Nullable Integer limit,
+                                             @Nullable Integer page);
 
     Observable<List<Question>> getAllQuestions();
 

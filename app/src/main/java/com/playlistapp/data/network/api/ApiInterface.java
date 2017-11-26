@@ -20,7 +20,8 @@ public interface ApiInterface {
     @GET
     Observable<Response<TrackResponse>> callTrackListApi(@Url String requestUrl,
                                                          @Query("country") String country,
-                                                         @Query("limit") Integer limit
+                                                         @Query("limit") Integer limit,
+                                                         @Query("page") Integer page
     );
 
 }

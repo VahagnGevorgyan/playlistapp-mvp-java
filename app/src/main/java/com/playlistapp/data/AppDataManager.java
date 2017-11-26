@@ -56,8 +56,9 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Observable<TrackResData> doTracksApiCall(@NonNull String country,
-                                                    @Nullable Integer limit) {
-        return mApiHelper.doTrackListCall(country, limit);
+                                                    @Nullable Integer limit,
+                                                    @Nullable Integer page) {
+        return mApiHelper.doTrackListCall(country, limit, page);
     }
 
 

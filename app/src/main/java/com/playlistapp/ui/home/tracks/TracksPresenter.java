@@ -33,12 +33,17 @@ public class TracksPresenter<V extends TracksMvpView> extends BasePresenter<V>
         }
         getMvpView().showProgressBar();
 
+        int pageId = 1;
+
         getCompositeDisposable().add(getDataManager()
-                .doTracksApiCall("spain", getDataManager().getSettingsHelper().general().getTrackLimitCount())
+                .doTracksApiCall(
+                        "spain",
+                        getDataManager().getSettingsHelper().general().getTrackLimitCount(),
+                        pageId)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(trackResData -> {
-                    Timber.d("Api request \"doTracksApiCall\" was successful " + trackResData);
+                    Timber.d("Api request \"doTracksApiCall\" was successful " + trackResData.getTrackItems());
 
                     if (!isViewAttached()) {
                         return;
