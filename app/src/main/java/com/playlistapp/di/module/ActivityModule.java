@@ -13,6 +13,9 @@ import com.playlistapp.ui.adapter.TrackListAdapter;
 import com.playlistapp.ui.home.HomeMvpPresenter;
 import com.playlistapp.ui.home.HomeMvpView;
 import com.playlistapp.ui.home.HomePresenter;
+import com.playlistapp.ui.home.settings.SettingsMvpPresenter;
+import com.playlistapp.ui.home.settings.SettingsMvpView;
+import com.playlistapp.ui.home.settings.SettingsPresenter;
 import com.playlistapp.ui.home.tracks.TracksMvpPresenter;
 import com.playlistapp.ui.home.tracks.TracksMvpView;
 import com.playlistapp.ui.home.tracks.TracksPresenter;
@@ -84,6 +87,13 @@ public class ActivityModule {
     @Provides
     TrackListAdapter provideTrackListAdapter(AppCompatActivity activity) {
         return new TrackListAdapter(activity);
+    }
+
+    @Provides
+    @PerActivity
+    SettingsMvpPresenter<SettingsMvpView> provideSettingsPresenter(
+            SettingsPresenter<SettingsMvpView> presenter) {
+        return presenter;
     }
 
     @Provides

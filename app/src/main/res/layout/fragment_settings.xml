@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_settings"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="@dimen/settings_bar_height"
+        android:gravity="center|start"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/nav_back_btn"
+            style="@style/Button.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:background="@color/transparent"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_keyboard_backspace"
+            android:contentDescription="@null" />
+
+        <TextView
+            style="@style/TextStyle.Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/nav_back_btn"
+            android:layout_toEndOf="@id/nav_back_btn"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/str_settings"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/check_back_btn"
+            style="@style/Button.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@color/transparent"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_check"
+            android:contentDescription="@null" />
+    </RelativeLayout>
+
+    <TextView
+        style="@style/TextStyle.Heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:autoLink="web"
+        android:padding="20dp"
+        android:text="project_info"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_mvp_blog"
+        style="@style/TextStyle.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:autoLink="web"
+        android:padding="10dp"
+        android:text="link_mvp_blog"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_mvp_repo"
+        style="@style/TextStyle.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:padding="10dp"
+        android:text="link_mvp_repo"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_mindorks_blog"
+        style="@style/TextStyle.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:padding="10dp"
+        android:text="link_mindorks_blog"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_mindorks_repo"
+        style="@style/TextStyle.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:padding="10dp"
+        android:text="link_mindorks_repo"
+        android:textColor="@color/white" />
+</LinearLayout>

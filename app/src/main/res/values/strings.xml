@@ -39,6 +39,7 @@
     <string name="str_track_time">Duration: %1$s min.</string>
     <string name="str_copied">Copied</string>
     <string name="str_clipboard_message">copy</string>
+    <string name="str_settings">Settings</string>
 
 
 </resources>

@@ -3,6 +3,7 @@ package com.playlistapp.di.component;
 import com.playlistapp.di.PerActivity;
 import com.playlistapp.di.module.ActivityModule;
 import com.playlistapp.ui.home.HomeActivity;
+import com.playlistapp.ui.home.settings.SettingsFragment;
 import com.playlistapp.ui.home.tracks.TracksFragment;
 import com.playlistapp.ui.splash.SplashActivity;
 import com.playlistapp.ui.web.WebViewActivity;
@@ -20,6 +21,8 @@ public interface ActivityComponent {
     void inject(HomeActivity activity);
 
     void inject(TracksFragment fragment);
+
+    void inject(SettingsFragment fragment);
 
     void inject(WebViewActivity activity);
 

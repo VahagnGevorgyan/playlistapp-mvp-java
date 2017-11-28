@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.playlistapp.R;
 import com.playlistapp.eventbus.event.OpenWebViewEvent;
 import com.playlistapp.ui.base.BaseActivity;
+import com.playlistapp.ui.home.settings.SettingsFragment;
 import com.playlistapp.ui.home.tracks.TracksFragment;
 import com.playlistapp.ui.web.WebViewActivity;
 import com.squareup.otto.Subscribe;
@@ -103,11 +106,31 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.layout_container);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            Fragment fragment = fragmentManager.findFragmentByTag(SettingsFragment.TAG);
+            if (fragment == null) {
+                super.onBackPressed();
+            } else {
+                onFragmentDetached(SettingsFragment.TAG);
+            }
+        }
+    }
+
+    @Override
+    public void onFragmentDetached(String tag) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
+        if (fragment != null) {
+            fragmentManager
+                    .beginTransaction()
+                    .disallowAddToBackStack()
+                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                    .remove(fragment)
+                    .commitNow();
+            unlockDrawer();
         }
     }
 
@@ -127,6 +150,7 @@ public class HomeActivity extends BaseActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            showSettingsFragment();
             return true;
         }
 
@@ -143,6 +167,7 @@ public class HomeActivity extends BaseActivity
             case R.id.nav_favorites:
                 break;
             case R.id.nav_tools:
+                showSettingsFragment();
                 break;
             case R.id.nav_about:
                 break;
@@ -152,20 +177,41 @@ public class HomeActivity extends BaseActivity
                 break;
         }
         Toast.makeText(this, "Open fragment " + item.getTitle(), Toast.LENGTH_SHORT).show();
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.layout_container);
-        drawer.closeDrawer(GravityCompat.START);
+        mDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void showSettingsFragment() {
+        Timber.d("Showing \"Settings\" fragment");
+        lockDrawer();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .add(R.id.layout_container, SettingsFragment.newInstance(), SettingsFragment.TAG)
+                .commit();
     }
 
     @Override
     public void showTracksFragment() {
         Timber.d("Showing \"Tracks\" fragment");
-        getSupportFragmentManager()
-                .beginTransaction()
-                .addToBackStack(TracksFragment.TAG)
-                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .replace(R.id.layoutMainContainer, TracksFragment.newInstance())
-                .commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(TracksFragment.TAG);
+        if (fragment == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                    .replace(R.id.layoutMainContainer, TracksFragment.newInstance(), TracksFragment.TAG)
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(TracksFragment.TAG)
+                    .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                    .replace(R.id.layoutMainContainer, TracksFragment.newInstance())
+                    .commit();
+        }
     }
 
     @Subscribe
@@ -175,6 +221,25 @@ public class HomeActivity extends BaseActivity
         intent.putExtra(EXTRA_WEB_URL, event.getWebUrl());
         intent.putExtra(EXTRA_WEB_TITLE, event.getWebTitle());
         startActivity(intent);
+    }
+
+    @Override
+    public void lockDrawer() {
+        if (mDrawer != null)
+            mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    @Override
+    public void unlockDrawer() {
+        if (mDrawer != null)
+            mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDrawer != null)
+            mDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     @Override
