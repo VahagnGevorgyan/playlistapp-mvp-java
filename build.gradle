@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0-alpha03'
+        classpath 'com.android.tools.build:gradle:3.1.0-alpha04'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
     }
     // Exclude the version that the android plugin depends on.
