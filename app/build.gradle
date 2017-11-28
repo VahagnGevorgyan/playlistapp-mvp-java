@@ -82,6 +82,7 @@ android {
         sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
         targetCompatibility = rootProject.ext.targetCompatibilityVersion
     }
+    buildToolsVersion '27.0.1'
 }
 
 configurations.all {

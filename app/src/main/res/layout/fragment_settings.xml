@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:background="@color/transparent"
+            android:background="?android:selectableItemBackground"
             android:tint="@color/white"
             app:srcCompat="@drawable/ic_keyboard_backspace"
             android:contentDescription="@null" />
@@ -49,7 +49,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:background="@color/transparent"
+            android:background="?android:selectableItemBackground"
             android:tint="@color/white"
             app:srcCompat="@drawable/ic_check"
             android:contentDescription="@null" />
