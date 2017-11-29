@@ -8,4 +8,8 @@ import com.playlistapp.ui.base.MvpPresenter;
 public interface HomeMvpPresenter<V extends HomeMvpView> extends MvpPresenter<V> {
 
     void onNavMenuCreated();
+
+    void testInterval();
+
+    void finishInterval();
 }

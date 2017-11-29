@@ -1,17 +1,17 @@
 package com.playlistapp.ui.home;
 
 import com.playlistapp.data.DataManager;
-import com.playlistapp.data.db.model.Question;
 import com.playlistapp.data.scheduler.SchedulerProvider;
 import com.playlistapp.ui.base.BasePresenter;
 import com.playlistapp.utils.CollectionUtils;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
+import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
 /**
@@ -20,6 +20,8 @@ import timber.log.Timber;
  */
 public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V>
         implements HomeMvpPresenter<V> {
+
+    private Disposable mSubscription;
 
     @Inject
     public HomePresenter(
@@ -72,6 +74,71 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V>
 //        getDataManager().getDbHelper().getAllQuestions();
 
         // TODO: open after testing DB
-        getMvpView().showTracksFragment();
+//        getMvpView().showTracksFragment();
+    }
+
+    @Override
+    public void testInterval() {
+        Timber.d("Testing RxJava Observable Interval ");
+
+
+//        Disposable subscription = Observable.interval(5, TimeUnit.SECONDS, Schedulers.io())
+//                .map(tick -> lastTick.getAndIncrement())
+//                .subscribe(tick -> System.out.println("tick = " + tick));
+
+        mSubscription = Observable
+                .interval(15, TimeUnit.SECONDS)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(aLong -> {
+                    Timber.d(":: time : " + aLong);
+
+                    getCompositeDisposable().add(getDataManager()
+                            .getAllQuestions()
+                            .subscribeOn(getSchedulerProvider().io())
+                            .observeOn(getSchedulerProvider().ui())
+                            .subscribe(questionList -> {
+                                if (!isViewAttached()) {
+                                    return;
+                                }
+
+                                Timber.d(":: questionList : " + questionList);
+                                if (!CollectionUtils.isEmpty(questionList)) {
+                                    Timber.d(":: text " + questionList.get(0).getQuestionText());
+                                }
+                            }));
+                });
+        getCompositeDisposable().add(mSubscription);
+
+//        getCompositeDisposable().add(Observable
+//            .interval(15, TimeUnit.SECONDS)
+//            .subscribeOn(getSchedulerProvider().io())
+//            .observeOn(getSchedulerProvider().ui())
+//            .subscribe(aLong -> {
+//                Timber.d(":: time : " + aLong);
+//
+//                getCompositeDisposable().add(getDataManager()
+//                        .getAllQuestions()
+//                        .subscribeOn(getSchedulerProvider().io())
+//                        .observeOn(getSchedulerProvider().ui())
+//                        .subscribe(questionList -> {
+//                            if (!isViewAttached()) {
+//                                return;
+//                            }
+//
+//                            Timber.d(":: questionList : " + questionList);
+//                            if (!CollectionUtils.isEmpty(questionList)) {
+//                                Timber.d(":: text " + questionList.get(0).getQuestionText());
+//                            }
+//                        }));
+//            }));
+    }
+
+    @Override
+    public void finishInterval() {
+        Timber.d(":: finish interval");
+        if (mSubscription != null && !mSubscription.isDisposed()) {
+            mSubscription.dispose();
+        }
     }
 }

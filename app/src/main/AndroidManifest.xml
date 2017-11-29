@@ -16,6 +16,7 @@
         android:required="false"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".App"
@@ -58,6 +59,13 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="1ef1f2f6eaf4a14366d82a5ce3cced118c32f2cf" />
+
+
+        <service
+            android:name=".service.TestService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
