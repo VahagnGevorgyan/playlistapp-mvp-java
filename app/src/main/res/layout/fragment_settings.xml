@@ -40,7 +40,7 @@
             android:textSize="20sp" />
 
         <ImageButton
-            android:id="@+id/check_back_btn"
+            android:id="@+id/save_btn"
             style="@style/Button.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,55 +55,87 @@
             android:contentDescription="@null" />
     </RelativeLayout>
 
-    <TextView
-        style="@style/TextStyle.Heading"
+    <RelativeLayout
+        android:padding="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:autoLink="web"
-        android:padding="20dp"
-        android:text="project_info"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_mvp_blog"
-        style="@style/TextStyle.Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:autoLink="web"
-        android:padding="10dp"
-        android:text="link_mvp_blog"
-        android:textColor="@color/white" />
+        <com.playlistapp.ui.view.CustomTextView
+            android:id="@+id/textViewCountryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:clickable="false"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:text="@string/str_select_country"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:app_font="fonts/arial.ttf" />
 
-    <TextView
-        android:id="@+id/tv_mvp_repo"
-        style="@style/TextStyle.Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autoLink="web"
-        android:padding="10dp"
-        android:text="link_mvp_repo"
-        android:textColor="@color/white" />
+        <View
+            android:id="@+id/dividerCountryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spinner_line_height"
+            android:layout_below="@+id/textViewCountryTitle"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white" />
 
-    <TextView
-        android:id="@+id/tv_mindorks_blog"
-        style="@style/TextStyle.Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autoLink="web"
-        android:padding="10dp"
-        android:text="link_mindorks_blog"
-        android:textColor="@color/white" />
+        <Spinner
+            android:id="@+id/spinnerCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dividerCountryTitle"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="30dp" />
 
-    <TextView
-        android:id="@+id/tv_mindorks_repo"
-        style="@style/TextStyle.Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autoLink="web"
-        android:padding="10dp"
-        android:text="link_mindorks_repo"
-        android:textColor="@color/white" />
+        <View
+            android:id="@+id/dividerSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spinner_line_height"
+            android:layout_below="@+id/spinnerCountry"
+            android:layout_marginBottom="7dp"
+            android:background="@color/black" />
+
+        <com.playlistapp.ui.view.CustomTextView
+            android:id="@+id/textViewSpinnerError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dividerSpinner"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="0dp"
+            android:clickable="false"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:text="@string/str_error_empty_text"
+            android:textColor="@color/error_color"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:app_font="fonts/arial.ttf" />
+
+        <com.playlistapp.ui.view.CustomTextView
+            android:id="@+id/textViewLimitTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewSpinnerError"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:clickable="false"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:text="@string/str_select_limit"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:app_font="fonts/arial.ttf" />
+
+        <View
+            android:id="@+id/dividerLimitTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spinner_line_height"
+            android:layout_below="@+id/textViewLimitTitle"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white" />
+    </RelativeLayout>
+
 </LinearLayout>

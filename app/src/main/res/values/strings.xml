@@ -40,6 +40,9 @@
     <string name="str_copied">Copied</string>
     <string name="str_clipboard_message">copy</string>
     <string name="str_settings">Settings</string>
+    <string name="str_select_country">Select country*</string>
+    <string name="str_select_limit">Select limit*</string>
+    <string name="str_error_empty_text">Field is required</string>
 
 
 </resources>
