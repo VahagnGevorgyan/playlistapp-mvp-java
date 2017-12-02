@@ -5,6 +5,7 @@ import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -32,6 +33,7 @@ import com.playlistapp.ui.web.WebViewActivity;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -113,7 +115,9 @@ public class HomeActivity extends BaseActivity
         mNavigationView.setNavigationItemSelectedListener(this);
         mPresenter.onNavMenuCreated();
 
-        mServiceComponent = new ComponentName(this, TestService.class);
+        mServiceComponent = new ComponentName(getPackageName(), TestService.class.getName());
+        jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+
     }
 
     @Override
@@ -266,60 +270,54 @@ public class HomeActivity extends BaseActivity
 //       mPresenter.testInterval();
     }
 
-    @OnClick(R.id.start_btn)
-    public void onStartClicked() {
-        mPresenter.testInterval();
-    }
+//    @OnClick(R.id.start_btn)
+//    public void onStartClicked() {
+//        mPresenter.testInterval();
+//    }
 
-    @OnClick(R.id.stop_button)
-    public void onStopClicked() {
-        mPresenter.finishInterval();
-    }
 
     private ComponentName mServiceComponent;
     private int mJobId = 0;
     public static final String WORK_DURATION_KEY =
             BuildConfig.APPLICATION_ID + ".WORK_DURATION_KEY";
 
+    private static final int JOB_ID = 1001;
+    private static final long REFRESH_INTERVAL  = 5 * 1000;
+
+    private JobScheduler jobScheduler;
+
+    @OnClick(R.id.stop_button)
+    public void onStopClicked() {
+        Timber.d("::: Finish Job");
+        List<JobInfo> allPendingJobs = jobScheduler.getAllPendingJobs();
+        if (allPendingJobs.size() > 0) {
+            // Finish the last one
+            int jobId = allPendingJobs.get(0).getId();
+            jobScheduler.cancel(jobId);
+            Timber.d("::: Cancel job " + jobId);
+        } else {
+            Timber.d("::: No jobs to cancel");
+        }
+    }
+
     /**
      * Executed when user clicks on SCHEDULE JOB.
      */
+    @OnClick(R.id.start_btn)
     public void scheduleJob(View v) {
-        JobInfo.Builder builder = new JobInfo.Builder(mJobId++, mServiceComponent);
 
-        String delay = "1";
-        if (!TextUtils.isEmpty(delay)) {
-            builder.setMinimumLatency(Long.valueOf(delay) * 100);
-        }
-        String deadline = "5";
-        if (!TextUtils.isEmpty(deadline)) {
-            builder.setOverrideDeadline(Long.valueOf(deadline) * 100);
-        }
-        boolean requiresUnmetered = false;
-        boolean requiresAnyConnectivity = true;
-        if (requiresUnmetered) {
-            builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED);
-        } else if (requiresAnyConnectivity) {
-            builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
-        }
-        builder.setRequiresDeviceIdle(false);
-        builder.setRequiresCharging(false);
+        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, mServiceComponent);
 
-        // Extras, work duration.
-        PersistableBundle extras = new PersistableBundle();
-        String workDuration = "";
-        if (TextUtils.isEmpty(workDuration)) {
-            workDuration = "1";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            builder.setPeriodic(15 * 60 * 1000, 5 * 60 *1000);
+        } else {
+            builder.setPeriodic(REFRESH_INTERVAL);
         }
-        extras.putLong(WORK_DURATION_KEY, Long.valueOf(workDuration) * 100);
+        final int result = jobScheduler.schedule(builder.build());
 
-        builder.setExtras(extras);
-
-        // Schedule job
-        Timber.d("::: Scheduling job");
-        JobScheduler tm = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        if (tm != null) {
-            tm.schedule(builder.build());
+        if (result == JobScheduler.RESULT_SUCCESS) {
+            Timber.d("::: Scheduled job successfully!");
         }
     }
 
