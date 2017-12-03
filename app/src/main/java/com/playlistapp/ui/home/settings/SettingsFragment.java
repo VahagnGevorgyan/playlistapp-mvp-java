@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -214,7 +213,6 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView {
                 selectedLimit,
                 mLimitDefValue
         );
-//        getBaseActivity().onFragmentDetached(TAG);
     }
 
     @Override

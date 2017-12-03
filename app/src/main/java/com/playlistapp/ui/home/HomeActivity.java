@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.playlistapp.R;
 import com.playlistapp.eventbus.event.OpenWebViewEvent;
 import com.playlistapp.ui.base.BaseActivity;
+import com.playlistapp.ui.home.about.AboutFragment;
 import com.playlistapp.ui.home.settings.SettingsFragment;
 import com.playlistapp.ui.home.tracks.TracksFragment;
 import com.playlistapp.ui.web.WebViewActivity;
@@ -147,6 +148,7 @@ public class HomeActivity extends BaseActivity
                 showSettingsFragment();
                 break;
             case R.id.nav_about:
+                showAboutFragment();
                 break;
             case R.id.nav_share:
                 break;
@@ -156,6 +158,17 @@ public class HomeActivity extends BaseActivity
         Toast.makeText(this, "Open fragment " + item.getTitle(), Toast.LENGTH_SHORT).show();
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void showAboutFragment() {
+        Timber.d("Showing \"About\" fragment");
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(TracksFragment.TAG)
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .replace(R.id.layoutMainContainer, AboutFragment.newInstance(), AboutFragment.TAG)
+                .commit();
     }
 
     @Override

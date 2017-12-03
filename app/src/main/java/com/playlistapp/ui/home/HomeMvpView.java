@@ -5,6 +5,8 @@ import com.playlistapp.ui.base.MvpView;
 
 public interface HomeMvpView extends MvpView {
 
+    void showAboutFragment();
+
     void showSettingsFragment();
 
     void showTracksFragment();
