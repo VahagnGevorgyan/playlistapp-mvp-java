@@ -5,6 +5,7 @@ import com.playlistapp.data.scheduler.SchedulerProvider;
 import com.playlistapp.ui.base.BasePresenter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -38,9 +39,9 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
         Locale[] locale = Locale.getAvailableLocales();
         List<String> countries = new ArrayList<>();
         String country;
-        for( Locale loc : locale ){
+        for (Locale loc : locale ){
             country = loc.getDisplayCountry();
-            if( country.length() > 0 && !countries.contains(country) ){
+            if (country.length() > 0 && !countries.contains(country) ){
                 countries.add( country );
             }
         }
@@ -54,11 +55,78 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
         if (!isViewAttached()) {
             return;
         }
-        for(int i = 0; i < countries.size(); i++) {
-            if(countries.get(i).equals("Spain")) { // TODO: Change with data from Settings
+        for (int i = 0; i < countries.size(); i++) {
+            if (countries.get(i).equals(
+                    getDataManager().getSettingsHelper().search().getCountry())) {
                 getMvpView().setSelectedCountry(i);
                 return;
             }
         }
+    }
+
+    @Override
+    public void loadLimitIndex(List<String> limitItems) {
+        if (!isViewAttached()) {
+            return;
+        }
+        for (int i = 0; i < limitItems.size(); i++) {
+            if (limitItems.get(i).equals(
+                    String.valueOf(getDataManager().getSettingsHelper().search().getLimitCount()))) {
+                getMvpView().setSelectedLimit(i);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void onSaveClicked(String selectedCountry, String countryDefValue, String selectedLimit, String limitDefValue) {
+        if (!isViewAttached()) {
+            return;
+        }
+        if (isFormValid(selectedCountry, countryDefValue, selectedLimit, limitDefValue)) {
+            getMvpView().showLoading();
+
+            getDataManager().getSettingsHelper().search().setCountry(selectedCountry);
+            getDataManager().getSettingsHelper().search().setLimitCount(Integer.valueOf(selectedLimit));
+
+            getMvpView().hideLoading();
+            getMvpView().backToTracks();
+        }
+    }
+
+    /**
+     * Validates settings screen form.
+     */
+    private boolean isFormValid(String city, String defCity, String limit, String defLimit) {
+        boolean isValid = true;
+        if (!validateCountry(city, defCity)) {
+            isValid = false;
+        }
+        if (!validateLimit(limit, defLimit)) {
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    private boolean validateLimit(String limit, String defValue) {
+        boolean isValid = true;
+        if (limit != null && !limit.equals(defValue)) {
+            getMvpView().clearLimitNotSelectedError();
+        } else {
+            isValid = false;
+            getMvpView().showLimitNotSelectedError();
+        }
+        return isValid;
+    }
+
+    private boolean validateCountry(String country, String defValue) {
+        boolean isValid = true;
+        if (country != null && !country.equals(defValue)) {
+            getMvpView().clearCountryNotSelectedError();
+        } else {
+            isValid = false;
+            getMvpView().showCountryNotSelectedError();
+        }
+        return isValid;
     }
 }

@@ -17,12 +17,12 @@ import java.util.List;
 /**
  * Adapter class for country spinner.
  */
-public class CountrySpinnerAdapter extends ArrayAdapter<String> {
+public class CustomSpinnerAdapter extends ArrayAdapter<String> {
 
     Context mContext;
     private List<String> mList;
 
-    public CountrySpinnerAdapter(Context context, int resource, List<String> objects) {
+    public CustomSpinnerAdapter(Context context, int resource, List<String> objects) {
         super(context, resource, objects);
         this.mList = objects;
         this.mContext = context;

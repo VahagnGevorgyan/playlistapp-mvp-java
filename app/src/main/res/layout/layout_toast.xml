@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:onex="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layoutToast"
     android:orientation="vertical"
     android:background="@drawable/toast_background"
@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="16sp"
-        onex:app_font="fonts/arial.ttf"/>
+        app:app_font="fonts/arial.ttf"/>
 
 </LinearLayout>

@@ -73,8 +73,7 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V>
 //                }));
 //        getDataManager().getDbHelper().getAllQuestions();
 
-        // TODO: open after testing DB
-//        getMvpView().showTracksFragment();
+        getMvpView().showTracksFragment();
     }
 
     @Override
@@ -110,28 +109,6 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V>
                 });
         getCompositeDisposable().add(mSubscription);
 
-//        getCompositeDisposable().add(Observable
-//            .interval(15, TimeUnit.SECONDS)
-//            .subscribeOn(getSchedulerProvider().io())
-//            .observeOn(getSchedulerProvider().ui())
-//            .subscribe(aLong -> {
-//                Timber.d(":: time : " + aLong);
-//
-//                getCompositeDisposable().add(getDataManager()
-//                        .getAllQuestions()
-//                        .subscribeOn(getSchedulerProvider().io())
-//                        .observeOn(getSchedulerProvider().ui())
-//                        .subscribe(questionList -> {
-//                            if (!isViewAttached()) {
-//                                return;
-//                            }
-//
-//                            Timber.d(":: questionList : " + questionList);
-//                            if (!CollectionUtils.isEmpty(questionList)) {
-//                                Timber.d(":: text " + questionList.get(0).getQuestionText());
-//                            }
-//                        }));
-//            }));
     }
 
     @Override

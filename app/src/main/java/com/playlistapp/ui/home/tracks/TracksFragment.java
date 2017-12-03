@@ -9,8 +9,10 @@ import android.view.View;
 
 import com.playlistapp.R;
 import com.playlistapp.data.network.data.track.TrackItem;
+import com.playlistapp.eventbus.event.RefreshTracksEvent;
 import com.playlistapp.ui.adapter.TrackListAdapter;
 import com.playlistapp.ui.base.BaseFragment;
+import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
@@ -120,6 +122,12 @@ public class TracksFragment extends BaseFragment implements TracksMvpView {
         mAdapter.addTrackList(trackItems);
         mAdapter.notifyDataSetChanged();
         mIsLoading = false;
+    }
+
+    @Subscribe
+    public void onRefreshTracksEvent(RefreshTracksEvent event) {
+        Timber.d("Trying to refresh track list items");
+        mPresenter.loadTrackItems();
     }
 
     @Override

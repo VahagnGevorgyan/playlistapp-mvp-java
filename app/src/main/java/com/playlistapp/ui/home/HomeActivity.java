@@ -1,12 +1,6 @@
 package com.playlistapp.ui.home;
 
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -17,23 +11,17 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.playlistapp.BuildConfig;
 import com.playlistapp.R;
 import com.playlistapp.eventbus.event.OpenWebViewEvent;
-import com.playlistapp.service.TestService;
 import com.playlistapp.ui.base.BaseActivity;
 import com.playlistapp.ui.home.settings.SettingsFragment;
 import com.playlistapp.ui.home.tracks.TracksFragment;
 import com.playlistapp.ui.web.WebViewActivity;
 import com.squareup.otto.Subscribe;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -114,10 +102,6 @@ public class HomeActivity extends BaseActivity
         mDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
         mPresenter.onNavMenuCreated();
-
-        mServiceComponent = new ComponentName(getPackageName(), TestService.class.getName());
-        jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
-
     }
 
     @Override
@@ -250,104 +234,107 @@ public class HomeActivity extends BaseActivity
     /////////////////////////
     // JOB SERVICE
 
-    @Override
-    protected void onStop() {
-        // A service can be "started" and/or "bound". In this case, it's "started" by this Activity
-        // and "bound" to the JobScheduler (also called "Scheduled" by the JobScheduler). This call
-        // to stopService() won't prevent scheduled jobs to be processed. However, failing
-        // to call stopService() would keep it alive indefinitely.
-        stopService(new Intent(this, TestService.class));
-        super.onStop();
-    }
+//    mServiceComponent = new ComponentName(getPackageName(), TestService.class.getName());
+//    jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+//    @Override
+//    protected void onStop() {
+//        // A service can be "started" and/or "bound". In this case, it's "started" by this Activity
+//        // and "bound" to the JobScheduler (also called "Scheduled" by the JobScheduler). This call
+//        // to stopService() won't prevent scheduled jobs to be processed. However, failing
+//        // to call stopService() would keep it alive indefinitely.
+//        stopService(new Intent(this, TestService.class));
+//        super.onStop();
+//    }
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
 //        // Start service and provide it a way to communicate with this class.
 //        Intent startServiceIntent = new Intent(this, TestService.class);
 //        startService(startServiceIntent);
-
-//       mPresenter.testInterval();
-    }
-
-//    @OnClick(R.id.start_btn)
-//    public void onStartClicked() {
-//        mPresenter.testInterval();
+//
+////       mPresenter.testInterval();
 //    }
-
-
-    private ComponentName mServiceComponent;
-    private int mJobId = 0;
-    public static final String WORK_DURATION_KEY =
-            BuildConfig.APPLICATION_ID + ".WORK_DURATION_KEY";
-
-    private static final int JOB_ID = 1001;
-    private static final long REFRESH_INTERVAL  = 5 * 1000;
-
-    private JobScheduler jobScheduler;
-
-    @OnClick(R.id.stop_button)
-    public void onStopClicked() {
-        Timber.d("::: Finish Job");
-        List<JobInfo> allPendingJobs = jobScheduler.getAllPendingJobs();
-        if (allPendingJobs.size() > 0) {
-            // Finish the last one
-            int jobId = allPendingJobs.get(0).getId();
-            jobScheduler.cancel(jobId);
-            Timber.d("::: Cancel job " + jobId);
-        } else {
-            Timber.d("::: No jobs to cancel");
-        }
-    }
-
-    /**
-     * Executed when user clicks on SCHEDULE JOB.
-     */
-    @OnClick(R.id.start_btn)
-    public void scheduleJob(View v) {
-
-        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, mServiceComponent);
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            builder.setPeriodic(15 * 60 * 1000, 5 * 60 *1000);
-        } else {
-            builder.setPeriodic(REFRESH_INTERVAL);
-        }
-        final int result = jobScheduler.schedule(builder.build());
-
-        if (result == JobScheduler.RESULT_SUCCESS) {
-            Timber.d("::: Scheduled job successfully!");
-        }
-    }
-
-    /**
-     * Executed when user clicks on CANCEL ALL.
-     */
-    public void cancelAllJobs(View v) {
-        Timber.d("::: Cancel All Jobs");
-        JobScheduler tm = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        if (tm != null) {
-            tm.cancelAll();
-        }
-    }
-
-    /**
-     * Executed when user clicks on FINISH LAST TASK.
-     */
-    public void finishJob(View v) {
-        Timber.d("::: Finish Job");
-        JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        List<JobInfo> allPendingJobs = jobScheduler.getAllPendingJobs();
-        if (allPendingJobs.size() > 0) {
-            // Finish the last one
-            int jobId = allPendingJobs.get(0).getId();
-            jobScheduler.cancel(jobId);
-            Timber.d("::: Cancel job " + jobId);
-        } else {
-            Timber.d("::: No jobs to cancel");
-        }
-    }
+//
+////    @OnClick(R.id.start_btn)
+////    public void onStartClicked() {
+////        mPresenter.testInterval();
+////    }
+//
+//
+//    private ComponentName mServiceComponent;
+//    private int mJobId = 0;
+//    public static final String WORK_DURATION_KEY =
+//            BuildConfig.APPLICATION_ID + ".WORK_DURATION_KEY";
+//
+//    private static final int JOB_ID = 1001;
+//    private static final long REFRESH_INTERVAL  = 5 * 1000;
+//
+//    private JobScheduler jobScheduler;
+//
+//    @OnClick(R.id.stop_button)
+//    public void onStopClicked() {
+//        Timber.d("::: Finish Job");
+//        List<JobInfo> allPendingJobs = jobScheduler.getAllPendingJobs();
+//        if (allPendingJobs.size() > 0) {
+//            // Finish the last one
+//            int jobId = allPendingJobs.get(0).getId();
+//            jobScheduler.cancel(jobId);
+//            Timber.d("::: Cancel job " + jobId);
+//        } else {
+//            Timber.d("::: No jobs to cancel");
+//        }
+//    }
+//
+//    /**
+//     * Executed when user clicks on SCHEDULE JOB.
+//     */
+//    @OnClick(R.id.start_btn)
+//    public void scheduleJob(View v) {
+//
+//        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, mServiceComponent);
+//
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            builder.setPeriodic(15 * 60 * 1000, 5 * 60 *1000);
+//        } else {
+//            builder.setPeriodic(REFRESH_INTERVAL);
+//        }
+//        final int result = jobScheduler.schedule(builder.build());
+//
+//        if (result == JobScheduler.RESULT_SUCCESS) {
+//            Timber.d("::: Scheduled job successfully!");
+//        }
+//    }
+//
+//    /**
+//     * Executed when user clicks on CANCEL ALL.
+//     */
+//    public void cancelAllJobs(View v) {
+//        Timber.d("::: Cancel All Jobs");
+//        JobScheduler tm = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+//        if (tm != null) {
+//            tm.cancelAll();
+//        }
+//    }
+//
+//    /**
+//     * Executed when user clicks on FINISH LAST TASK.
+//     */
+//    public void finishJob(View v) {
+//        Timber.d("::: Finish Job");
+//        JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+//        List<JobInfo> allPendingJobs = jobScheduler.getAllPendingJobs();
+//        if (allPendingJobs.size() > 0) {
+//            // Finish the last one
+//            int jobId = allPendingJobs.get(0).getId();
+//            jobScheduler.cancel(jobId);
+//            Timber.d("::: Cancel job " + jobId);
+//        } else {
+//            Timber.d("::: No jobs to cancel");
+//        }
+//    }
 
 
 }

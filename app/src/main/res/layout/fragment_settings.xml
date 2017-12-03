@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:clickable="true"
+    android:focusable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_settings"
@@ -65,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/settings_margin_controls"
             android:clickable="false"
             android:paddingBottom="0dp"
             android:paddingTop="0dp"
@@ -77,7 +79,7 @@
         <View
             android:id="@+id/dividerCountryTitle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/spinner_line_height"
+            android:layout_height="@dimen/settings_spinner_line_height"
             android:layout_below="@+id/textViewCountryTitle"
             android:layout_marginBottom="7dp"
             android:background="@color/white" />
@@ -88,21 +90,21 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/dividerCountryTitle"
             android:layout_marginBottom="7dp"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="@dimen/settings_margin_controls" />
 
         <View
-            android:id="@+id/dividerSpinner"
+            android:id="@+id/dividerSpinnerCountry"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/spinner_line_height"
+            android:layout_height="@dimen/settings_spinner_line_height"
             android:layout_below="@+id/spinnerCountry"
             android:layout_marginBottom="7dp"
             android:background="@color/black" />
 
         <com.playlistapp.ui.view.CustomTextView
-            android:id="@+id/textViewSpinnerError"
+            android:id="@+id/textViewSpinnerCountryError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/dividerSpinner"
+            android:layout_below="@id/dividerSpinnerCountry"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="0dp"
             android:clickable="false"
@@ -118,9 +120,9 @@
             android:id="@+id/textViewLimitTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewSpinnerError"
+            android:layout_below="@id/textViewSpinnerCountryError"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/settings_margin_controls"
             android:clickable="false"
             android:paddingBottom="0dp"
             android:paddingTop="0dp"
@@ -132,10 +134,43 @@
         <View
             android:id="@+id/dividerLimitTitle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/spinner_line_height"
+            android:layout_height="@dimen/settings_spinner_line_height"
             android:layout_below="@+id/textViewLimitTitle"
             android:layout_marginBottom="7dp"
             android:background="@color/white" />
+
+        <Spinner
+            android:id="@+id/spinnerLimit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dividerLimitTitle"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="@dimen/settings_margin_controls" />
+
+        <View
+            android:id="@+id/dividerSpinnerLimit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_spinner_line_height"
+            android:layout_below="@+id/spinnerLimit"
+            android:layout_marginBottom="7dp"
+            android:background="@color/black" />
+
+        <com.playlistapp.ui.view.CustomTextView
+            android:id="@+id/textViewSpinnerLimitError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dividerSpinnerLimit"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="0dp"
+            android:clickable="false"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:text="@string/str_error_empty_text"
+            android:textColor="@color/error_color"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:app_font="fonts/arial.ttf" />
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -33,19 +33,14 @@ public class Constants {
     public static final String DEFAULT_FONT = "fonts/arial.ttf";
     public static final String CUSTOM_ATTR_SCHEMAS = "http://schemas.android.com/apk/res-auto";
 
-    public static final String IMAGE_URL = "http://onex.am";
-
-    public static final String ONEX_WEB_URL = "http://onex.am/pages/5";
-
-    public static final String SET_NOTIFICATION = "com.onex.SET_NOTIFICATION";
-
-    public static final String ONEX_EMAIL = "contact@onex.am";
-    public static final String ONEX_PHONE= "+37460750350";
-    public static final String ONEX_URL= "http://onex.am/";
+    public static final String SET_NOTIFICATION = "com.playlistapp.SET_NOTIFICATION";
 
     public static final String PREF_NAME = "AppPreferences";
 
     public static final long TIMEOUT_RETRY_INITIALIZING_NETWORK_LISTENER = 500L; // 0.5s
+
+    public static final int DEFAULT_TRACK_LIMIT_COUNT = 10;
+    public static final String DEFAULT_TRACK_COUNTRY = "Latvia";
 
     // MAIN
     public static final String EXTRA_FRAGMENT_POSITION = "extra_fragment_position";

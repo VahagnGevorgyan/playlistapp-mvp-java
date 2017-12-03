@@ -7,6 +7,8 @@ public interface AppSettingsHelper {
 
     ProfileSettings profile();
 
+    SearchSettings search();
+
     CitySettings city();
 
 }

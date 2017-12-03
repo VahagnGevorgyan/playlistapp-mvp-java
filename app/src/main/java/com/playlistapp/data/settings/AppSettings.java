@@ -29,6 +29,11 @@ public class AppSettings implements AppSettingsHelper {
     }
 
     @Override
+    public SearchSettings search() {
+        return (SearchSettings )components.get(SearchSettings.class);
+    }
+
+    @Override
     public CitySettings city() {
         return (CitySettings)components.get(CitySettings.class);
     }
@@ -37,6 +42,7 @@ public class AppSettings implements AppSettingsHelper {
         components = new HashMap<>();
         components.put(GeneralSettings.class, new GeneralSettings(prefs));
         components.put(ProfileSettings.class, new ProfileSettings(prefs));
+        components.put(SearchSettings.class, new SearchSettings(prefs));
         components.put(CitySettings.class, new CitySettings(prefs));
     }
 }

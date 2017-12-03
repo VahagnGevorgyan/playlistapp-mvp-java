@@ -25,7 +25,7 @@ import static android.view.View.VISIBLE;
 /**
  * Base class for fragments.
  */
-public abstract class BaseFragment extends Fragment implements MvpView {
+public abstract class BaseFragment extends EventBusFragment implements MvpView {
 
     private BaseActivity mActivity;
     private Unbinder mUnBinder;

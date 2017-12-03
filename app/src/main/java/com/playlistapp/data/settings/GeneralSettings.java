@@ -3,20 +3,12 @@ package com.playlistapp.data.settings;
 import static java.lang.Integer.MIN_VALUE;
 
 /**
- * Storing user profile information.
+ * Storing app general information.
  */
 public class GeneralSettings extends BaseSettings {
 
     public GeneralSettings(AppPreferences prefs) {
         super(prefs);
-    }
-
-    public int getTrackLimitCount() {
-        return getPrefs().getInt(AppPreferences.Settings.TRACK_LIMIT_COUNT.key(), 10);
-    }
-
-    public void setTrackLimitCount(int limitCount) {
-        getPrefs().setSetting(AppPreferences.Settings.TRACK_LIMIT_COUNT, limitCount);
     }
 
     public String getSplashUrl() {

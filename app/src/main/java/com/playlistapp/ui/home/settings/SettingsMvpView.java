@@ -12,5 +12,13 @@ public interface SettingsMvpView extends MvpView {
 
     void showCountryNotSelectedError();
 
+    void clearLimitNotSelectedError();
+
+    void showLimitNotSelectedError();
+
     void setSelectedCountry(int i);
+
+    void setSelectedLimit(int i);
+
+    void backToTracks();
 }

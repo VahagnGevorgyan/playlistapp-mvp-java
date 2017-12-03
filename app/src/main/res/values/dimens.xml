@@ -47,6 +47,8 @@
 
     <!-- Settings -->
     <dimen name="settings_bar_height">0dp</dimen>
-    <dimen name="spinner_line_height">1dp</dimen>
+    <dimen name="settings_spinner_line_height">1dp</dimen>
+    <dimen name="settings_margin_controls">30dp</dimen>
+
 
 </resources>

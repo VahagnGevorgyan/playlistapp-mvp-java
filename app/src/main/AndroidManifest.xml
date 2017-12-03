@@ -45,7 +45,6 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "https://onex.am/” -->
                 <data android:scheme="http"
                     android:host="@string/filter_uri_app"/>
             </intent-filter>

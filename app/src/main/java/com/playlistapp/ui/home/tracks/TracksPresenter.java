@@ -59,6 +59,7 @@ public class TracksPresenter<V extends TracksMvpView> extends BasePresenter<V>
         getMvpView().showProgressBar();
 
         mPageId++;
+
         callTracksApi(mPageId, trackResData -> {
             Timber.d("Api request \"doTracksApiCall\" was successful " + trackResData);
 
@@ -75,10 +76,15 @@ public class TracksPresenter<V extends TracksMvpView> extends BasePresenter<V>
      */
     private void callTracksApi(int pageId, Consumer<TrackResData> listener) {
         Timber.d("Calling Tracks web service");
+
+        Timber.d(":: page " + pageId);
+        Timber.d(":: country " + getDataManager().getSettingsHelper().search().getCountry());
+        Timber.d(":: limit " + getDataManager().getSettingsHelper().search().getLimitCount());
+
         getCompositeDisposable().add(getDataManager()
                 .doTracksApiCall(
-                        "spain",
-                        getDataManager().getSettingsHelper().general().getTrackLimitCount(),
+                        getDataManager().getSettingsHelper().search().getCountry(),
+                        getDataManager().getSettingsHelper().search().getLimitCount(),
                         pageId)
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
