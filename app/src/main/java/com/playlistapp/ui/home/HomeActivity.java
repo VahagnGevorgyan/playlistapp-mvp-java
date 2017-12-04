@@ -28,14 +28,17 @@ import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
 
 import static com.playlistapp.Constants.EXTRA_WEB_TITLE;
 import static com.playlistapp.Constants.EXTRA_WEB_URL;
+import static com.playlistapp.utils.FragmentUtils.ABOUT_POSITION;
 import static com.playlistapp.utils.FragmentUtils.DEFAULT_POSITION;
-import static com.playlistapp.utils.FragmentUtils.SETTINGS_POSITION;
+import static com.playlistapp.utils.FragmentUtils.FAVORITES_POSITION;
+import static com.playlistapp.utils.FragmentUtils.TRACKS_POSITION;
 
 /**
  * Home screen activity class.
@@ -54,6 +57,17 @@ public class HomeActivity extends BaseActivity
     DrawerLayout mDrawer;
     @BindView(R.id.btnFilter)
     ImageButton mBtnFilter;
+
+    @BindString(R.string.menu_tracks)
+    String mMenuTracks;
+    @BindString(R.string.menu_favorites)
+    String mMenuFavorites;
+    @BindString(R.string.menu_tools)
+    String mMenuTools;
+    @BindString(R.string.menu_about)
+    String mMenuAbout;
+    @BindString(R.string.menu_share)
+    String mMenuShare;
 
     @Override
     protected int attachLayoutRes() {
@@ -132,16 +146,29 @@ public class HomeActivity extends BaseActivity
     public void setToolbarItems(int position) {
         Timber.d("Set toolbar items based on last selected fragment with position " + position);
         switch (position) {
-            case SETTINGS_POSITION:
+            case TRACKS_POSITION:
+                setToolbarTitle(mMenuTracks);
                 prepareFilterIcon(true);
-//                prepareNotificationIcon(false);
+                break;
+            case FAVORITES_POSITION:
+                setToolbarTitle(mMenuFavorites);
+                break;
+            case ABOUT_POSITION:
+                setToolbarTitle(mMenuAbout);
+                prepareFilterIcon(false);
                 break;
             case DEFAULT_POSITION:
             default:
-                prepareFilterIcon(false);
-//                prepareNotificationIcon(true);
                 break;
         }
+    }
+
+    /**
+     * Setting toolbar title.
+     * @param title
+     */
+    public void setToolbarTitle(String title) {
+        mToolbar.setTitle(title);
     }
 
     public void prepareFilterIcon(boolean show) {

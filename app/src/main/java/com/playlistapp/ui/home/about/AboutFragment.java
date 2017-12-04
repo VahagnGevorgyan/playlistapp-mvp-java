@@ -14,7 +14,7 @@ import timber.log.Timber;
 
 import static com.playlistapp.Constants.EXTRA_FRAGMENT_POSITION;
 import static com.playlistapp.Constants.EXTRA_MENU_ITEM_ID;
-import static com.playlistapp.utils.FragmentUtils.DEFAULT_POSITION;
+import static com.playlistapp.utils.FragmentUtils.ABOUT_POSITION;
 
 /**
  * About fragment class.
@@ -25,7 +25,7 @@ public class AboutFragment extends MainBaseFragment implements AboutMvpView {
 
     public static AboutFragment newInstance(int id) {
         Bundle args = new Bundle();
-        args.putInt(EXTRA_FRAGMENT_POSITION, DEFAULT_POSITION);
+        args.putInt(EXTRA_FRAGMENT_POSITION, ABOUT_POSITION);
         args.putInt(EXTRA_MENU_ITEM_ID, id);
         AboutFragment fragment = new AboutFragment();
         fragment.setArguments(args);

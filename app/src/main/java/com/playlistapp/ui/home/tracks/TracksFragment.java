@@ -25,6 +25,7 @@ import timber.log.Timber;
 import static com.playlistapp.Constants.EXTRA_FRAGMENT_POSITION;
 import static com.playlistapp.Constants.EXTRA_MENU_ITEM_ID;
 import static com.playlistapp.utils.FragmentUtils.DEFAULT_POSITION;
+import static com.playlistapp.utils.FragmentUtils.TRACKS_POSITION;
 
 /**
  * Tracks fragment class.
@@ -51,7 +52,7 @@ public class TracksFragment extends MainBaseFragment implements TracksMvpView {
 
     public static TracksFragment newInstance(int id) {
         Bundle args = new Bundle();
-        args.putInt(EXTRA_FRAGMENT_POSITION, DEFAULT_POSITION);
+        args.putInt(EXTRA_FRAGMENT_POSITION, TRACKS_POSITION);
         args.putInt(EXTRA_MENU_ITEM_ID, id);
         TracksFragment fragment = new TracksFragment();
         fragment.setArguments(args);
