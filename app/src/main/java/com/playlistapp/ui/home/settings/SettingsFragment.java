@@ -12,7 +12,7 @@ import com.playlistapp.R;
 import com.playlistapp.eventbus.SingletonBus;
 import com.playlistapp.eventbus.event.RefreshTracksEvent;
 import com.playlistapp.ui.adapter.CustomSpinnerAdapter;
-import com.playlistapp.ui.base.BaseFragment;
+import com.playlistapp.ui.base.MainBaseFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,10 +26,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
+import static com.playlistapp.Constants.EXTRA_FRAGMENT_POSITION;
+import static com.playlistapp.Constants.EXTRA_MENU_ITEM_ID;
+import static com.playlistapp.utils.FragmentUtils.SETTINGS_POSITION;
+
 /**
  * Settings fragment class.
  */
-public class SettingsFragment extends BaseFragment implements SettingsMvpView {
+public class SettingsFragment extends MainBaseFragment implements SettingsMvpView {
 
     public static final String TAG = SettingsFragment.class.getSimpleName();
 
@@ -59,8 +63,10 @@ public class SettingsFragment extends BaseFragment implements SettingsMvpView {
     CustomSpinnerAdapter mCountryAdapter;
     CustomSpinnerAdapter mLimitAdapter;
 
-    public static SettingsFragment newInstance() {
+    public static SettingsFragment newInstance(int id) {
         Bundle args = new Bundle();
+        args.putInt(EXTRA_FRAGMENT_POSITION, SETTINGS_POSITION);
+        args.putInt(EXTRA_MENU_ITEM_ID, id);
         SettingsFragment fragment = new SettingsFragment();
         fragment.setArguments(args);
         return fragment;

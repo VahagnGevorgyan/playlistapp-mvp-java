@@ -44,7 +44,7 @@ public class Constants {
 
     // MAIN
     public static final String EXTRA_FRAGMENT_POSITION = "extra_fragment_position";
-    public static final String EXTRA_MENU_ITEM_POSITION = "extra_menu_item_position";
+    public static final String EXTRA_MENU_ITEM_ID = "extra_menu_item_id";
 
     // WEB
     public static final String EXTRA_WEB_URL = "extra_web_url";

@@ -11,7 +11,7 @@ import com.playlistapp.R;
 import com.playlistapp.data.network.data.track.TrackItem;
 import com.playlistapp.eventbus.event.RefreshTracksEvent;
 import com.playlistapp.ui.adapter.TrackListAdapter;
-import com.playlistapp.ui.base.BaseFragment;
+import com.playlistapp.ui.base.MainBaseFragment;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -22,10 +22,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
+import static com.playlistapp.Constants.EXTRA_FRAGMENT_POSITION;
+import static com.playlistapp.Constants.EXTRA_MENU_ITEM_ID;
+import static com.playlistapp.utils.FragmentUtils.DEFAULT_POSITION;
+
 /**
  * Tracks fragment class.
  */
-public class TracksFragment extends BaseFragment implements TracksMvpView {
+public class TracksFragment extends MainBaseFragment implements TracksMvpView {
 
     public static final String TAG = TracksFragment.class.getSimpleName();
 
@@ -45,8 +49,10 @@ public class TracksFragment extends BaseFragment implements TracksMvpView {
 
     boolean mIsLoading = false;
 
-    public static TracksFragment newInstance() {
+    public static TracksFragment newInstance(int id) {
         Bundle args = new Bundle();
+        args.putInt(EXTRA_FRAGMENT_POSITION, DEFAULT_POSITION);
+        args.putInt(EXTRA_MENU_ITEM_ID, id);
         TracksFragment fragment = new TracksFragment();
         fragment.setArguments(args);
         return fragment;

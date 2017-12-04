@@ -11,7 +11,7 @@ import com.playlistapp.eventbus.event.SetMainFragmentDetailsEvent;
 import timber.log.Timber;
 
 import static com.playlistapp.Constants.EXTRA_FRAGMENT_POSITION;
-import static com.playlistapp.Constants.EXTRA_MENU_ITEM_POSITION;
+import static com.playlistapp.Constants.EXTRA_MENU_ITEM_ID;
 
 /**
  * Base fragment abstract class for Main activity fragments.
@@ -34,10 +34,10 @@ public abstract class MainBaseFragment extends BaseFragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             mFragmentPosition = bundle.getInt(EXTRA_FRAGMENT_POSITION, -1);
-//            mMenuItemPosition = bundle.getInt(EXTRA_MENU_ITEM_POSITION, MenuItemAdapter.MenuItems.MY_ORDERS.ordinal());
+            mMenuItemPosition = bundle.getInt(EXTRA_MENU_ITEM_ID, 0);
         } else {
             mFragmentPosition = 0;
-//            mMenuItemPosition = MenuItemAdapter.MenuItems.MY_ORDERS.ordinal();
+            mMenuItemPosition = 0;
         }
     }
 

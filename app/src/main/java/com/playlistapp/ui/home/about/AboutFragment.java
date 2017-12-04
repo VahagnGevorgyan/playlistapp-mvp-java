@@ -5,22 +5,28 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.playlistapp.R;
-import com.playlistapp.ui.base.BaseFragment;
+import com.playlistapp.ui.base.MainBaseFragment;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
+import static com.playlistapp.Constants.EXTRA_FRAGMENT_POSITION;
+import static com.playlistapp.Constants.EXTRA_MENU_ITEM_ID;
+import static com.playlistapp.utils.FragmentUtils.DEFAULT_POSITION;
+
 /**
  * About fragment class.
  */
-public class AboutFragment extends BaseFragment implements AboutMvpView {
+public class AboutFragment extends MainBaseFragment implements AboutMvpView {
 
     public static final String TAG = AboutFragment.class.getSimpleName();
 
-    public static AboutFragment newInstance() {
+    public static AboutFragment newInstance(int id) {
         Bundle args = new Bundle();
+        args.putInt(EXTRA_FRAGMENT_POSITION, DEFAULT_POSITION);
+        args.putInt(EXTRA_MENU_ITEM_ID, id);
         AboutFragment fragment = new AboutFragment();
         fragment.setArguments(args);
         return fragment;

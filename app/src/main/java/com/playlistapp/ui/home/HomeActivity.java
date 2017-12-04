@@ -13,10 +13,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.playlistapp.R;
 import com.playlistapp.eventbus.event.OpenWebViewEvent;
+import com.playlistapp.eventbus.event.SetMainFragmentDetailsEvent;
 import com.playlistapp.ui.base.BaseActivity;
 import com.playlistapp.ui.home.about.AboutFragment;
 import com.playlistapp.ui.home.settings.SettingsFragment;
@@ -32,6 +34,8 @@ import timber.log.Timber;
 
 import static com.playlistapp.Constants.EXTRA_WEB_TITLE;
 import static com.playlistapp.Constants.EXTRA_WEB_URL;
+import static com.playlistapp.utils.FragmentUtils.DEFAULT_POSITION;
+import static com.playlistapp.utils.FragmentUtils.SETTINGS_POSITION;
 
 /**
  * Home screen activity class.
@@ -48,6 +52,8 @@ public class HomeActivity extends BaseActivity
     NavigationView mNavigationView;
     @BindView(R.id.layout_container)
     DrawerLayout mDrawer;
+    @BindView(R.id.btnFilter)
+    ImageButton mBtnFilter;
 
     @Override
     protected int attachLayoutRes() {
@@ -103,6 +109,43 @@ public class HomeActivity extends BaseActivity
         mDrawerToggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
         mPresenter.onNavMenuCreated();
+    }
+
+    @Subscribe
+    public void onSetMainFragmentDetailsEvent(SetMainFragmentDetailsEvent event) {
+        Timber.d("Setting main fragment appearance details " + event.getFragmentPosition());
+        setToolbarItems(event.getFragmentPosition());
+        setSelectedMenuItem(event.getMenuItem());
+    }
+
+    /**
+     * Setting menu items based on selected menu position.
+     */
+    private void setSelectedMenuItem(int position) {
+        Timber.d("Set selected menu item based on last selected position " + position);
+        mNavigationView.setCheckedItem(position);
+    }
+
+    /**
+     * Setting toolbar items based on fragment position.
+     */
+    public void setToolbarItems(int position) {
+        Timber.d("Set toolbar items based on last selected fragment with position " + position);
+        switch (position) {
+            case SETTINGS_POSITION:
+                prepareFilterIcon(true);
+//                prepareNotificationIcon(false);
+                break;
+            case DEFAULT_POSITION:
+            default:
+                prepareFilterIcon(false);
+//                prepareNotificationIcon(true);
+                break;
+        }
+    }
+
+    public void prepareFilterIcon(boolean show) {
+        mBtnFilter.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -167,7 +210,7 @@ public class HomeActivity extends BaseActivity
                 .beginTransaction()
                 .addToBackStack(TracksFragment.TAG)
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .replace(R.id.layoutMainContainer, AboutFragment.newInstance(), AboutFragment.TAG)
+                .replace(R.id.layoutMainContainer, AboutFragment.newInstance(R.id.nav_about), AboutFragment.TAG)
                 .commit();
     }
 
@@ -179,7 +222,7 @@ public class HomeActivity extends BaseActivity
                 .beginTransaction()
                 .disallowAddToBackStack()
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.layout_container, SettingsFragment.newInstance(), SettingsFragment.TAG)
+                .add(R.id.layout_container, SettingsFragment.newInstance(R.id.nav_tools), SettingsFragment.TAG)
                 .commit();
     }
 
@@ -192,14 +235,14 @@ public class HomeActivity extends BaseActivity
             getSupportFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                    .replace(R.id.layoutMainContainer, TracksFragment.newInstance(), TracksFragment.TAG)
+                    .replace(R.id.layoutMainContainer, TracksFragment.newInstance(R.id.nav_tracks), TracksFragment.TAG)
                     .commit();
         } else {
             getSupportFragmentManager()
                     .beginTransaction()
                     .addToBackStack(TracksFragment.TAG)
                     .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                    .replace(R.id.layoutMainContainer, TracksFragment.newInstance())
+                    .replace(R.id.layoutMainContainer, TracksFragment.newInstance(R.id.nav_tracks))
                     .commit();
         }
     }
