@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.playlistapp.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.OnClick;
 import timber.log.Timber;
 
 /**
@@ -96,8 +98,6 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
                 break;
             }
         }
-
-
     }
 
     @Override
@@ -114,6 +114,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
         ImageView imageViewTrack;
         TextView textViewDuration;
         TextView textViewArtist;
+        ImageButton btnFavorite;
         ProgressBar loadingBar;
 
         TrackViewHolder(View itemView) {
@@ -122,6 +123,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
             imageViewTrack = itemView.findViewById(R.id.imageViewTrack);
             textViewDuration = itemView.findViewById(R.id.textViewDuration);
             textViewArtist = itemView.findViewById(R.id.textViewArtist);
+            btnFavorite = itemView.findViewById(R.id.btnFavorite);
             loadingBar = itemView.findViewById(R.id.loadingBar);
             itemView.setOnClickListener(this);
         }
@@ -130,6 +132,18 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
         public void onClick(View v) {
             SingletonBus.getInstance().post(
                     new OpenWebViewEvent(mList.get(getAdapterPosition()).getUrl(), mList.get(getAdapterPosition()).getName()));
+        }
+
+        @OnClick(R.id.btnFavorite)
+        public void onFavoriteClicked(View v) {
+            if (mList.get(getAdapterPosition()).isFavorite()) {
+                // TODO: 1. Remove from DB favorites table
+                // TODO: 2. Change favorite item icon : OFF
+            } else {
+                // TODO: 1. Add item to DB favorites table
+                // TODO: 2. Change favorite item icon : ON
+            }
+
         }
     }
 }

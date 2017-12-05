@@ -111,6 +111,7 @@ dependencies {
 //    // Android Testing Support Library's runner and rules
 //    androidTestImplementation rootProject.ext.deps.roomTest
 
+    // Support
     compile rootProject.ext.deps.supportLibrary
     compile rootProject.ext.deps.supportCompat
     compile rootProject.ext.deps.supportv4
@@ -167,20 +168,24 @@ dependencies {
     compile rootProject.ext.deps.butterknife
     annotationProcessor rootProject.ext.deps.butterknifeCompiler
 
+    // Rx
     compile rootProject.ext.deps.rxandroid
     compile rootProject.ext.deps.rxjava
     compile rootProject.ext.deps.rxNetwork
 
+    // Retrofit
     compile  rootProject.ext.deps.retrofit
     compile  rootProject.ext.deps.gsonConverter
     compile  rootProject.ext.deps.retrofitAdapter
     compile  rootProject.ext.deps.gson
 
+    // Network
     compile  rootProject.ext.deps.okhttp3
     compile  rootProject.ext.deps.okhttp3urlConnection
     compile  rootProject.ext.deps.logging
     compile  rootProject.ext.deps.okio
 
+    // Dependency Injection
     compile rootProject.ext.deps.dagger
     annotationProcessor rootProject.ext.deps.daggerCompiler
     provided rootProject.ext.deps.javaAnnotation

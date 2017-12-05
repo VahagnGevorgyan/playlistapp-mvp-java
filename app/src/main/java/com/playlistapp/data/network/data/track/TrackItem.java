@@ -33,6 +33,8 @@ public class TrackItem {
     @Expose
     private List<Image> mImageList = null;
 
+    private boolean mIsFavorite;
+
     public String getName() {
         return mName;
     }
@@ -63,6 +65,14 @@ public class TrackItem {
 
     public List<Image> getImageList() {
         return mImageList;
+    }
+
+    public boolean isFavorite() {
+        return mIsFavorite;
+    }
+
+    public void setIsFavorite(boolean isFavorite) {
+        this.mIsFavorite = isFavorite;
     }
 
     @Override
