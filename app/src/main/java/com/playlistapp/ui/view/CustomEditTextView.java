@@ -15,7 +15,7 @@ import static com.playlistapp.Constants.DEFAULT_FONT;
 /**
  * Custom Edit text class.
  */
-public class CustomEditTextView  extends AppCompatEditText {
+public class CustomEditTextView extends AppCompatEditText {
 
     private Context context;
     private String fontName = null;
@@ -23,7 +23,7 @@ public class CustomEditTextView  extends AppCompatEditText {
     public CustomEditTextView(Context context) {
         super(context);
         this.context = context;
-        initilaize();
+        initialize();
     }
 
     public CustomEditTextView(Context context, AttributeSet attrs) {
@@ -31,11 +31,11 @@ public class CustomEditTextView  extends AppCompatEditText {
         this.context = context;
         for (int i = 0; i < attrs.getAttributeCount(); i++) {
             this.fontName = attrs.getAttributeValue(CUSTOM_ATTR_SCHEMAS, "app_font");
-            initilaize();
+            initialize();
         }
     }
 
-    private void initilaize() {
+    private void initialize() {
         if (null == this.fontName) {
             this.fontName = DEFAULT_FONT;
         }

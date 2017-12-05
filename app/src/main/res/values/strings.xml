@@ -48,5 +48,8 @@
     <string name="settings_min_number">5</string>
     <string name="settings_max_number">30</string>
 
+    <!-- ABOUT -->
+    <string name="about_desc">Sample application, which demonstrate MVP, RxJava, Dagger2 on Android</string>
+    <string name="about_version_number">Version %1$s</string>
 
 </resources>

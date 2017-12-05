@@ -22,7 +22,7 @@ public class CustomTextView extends AppCompatTextView {
 	public CustomTextView(Context context) {
 		super(context);
 		this.context = context;
-		initilaize();
+		initialize();
 	}
 	
 	public CustomTextView(Context context, AttributeSet attrs) {
@@ -30,11 +30,11 @@ public class CustomTextView extends AppCompatTextView {
         this.context = context;
         for (int i = 0; i < attrs.getAttributeCount(); i++) {
             this.fontName = attrs.getAttributeValue(CUSTOM_ATTR_SCHEMAS, "fonts");
-            initilaize();
+            initialize();
         }
     }
 	
-	private void initilaize() {
+	private void initialize() {
         if (null == this.fontName) {
             this.fontName = DEFAULT_FONT;
         }

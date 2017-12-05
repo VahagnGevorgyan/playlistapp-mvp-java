@@ -3,12 +3,15 @@ package com.playlistapp.ui.home.about;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
+import com.playlistapp.BuildConfig;
 import com.playlistapp.R;
 import com.playlistapp.ui.base.MainBaseFragment;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
@@ -22,6 +25,9 @@ import static com.playlistapp.utils.FragmentUtils.ABOUT_POSITION;
 public class AboutFragment extends MainBaseFragment implements AboutMvpView {
 
     public static final String TAG = AboutFragment.class.getSimpleName();
+
+    @BindView(R.id.version_number)
+    TextView mVersionNumberView;
 
     public static AboutFragment newInstance(int id) {
         Bundle args = new Bundle();
@@ -51,6 +57,7 @@ public class AboutFragment extends MainBaseFragment implements AboutMvpView {
     @Override
     protected void prepareView(View rootView) {
         Timber.d("Preparing fragment elements");
+        mVersionNumberView.setText(getString(R.string.about_version_number, BuildConfig.VERSION_NAME));
     }
 
     @Override
