@@ -2,6 +2,8 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:id="@+id/layout_about"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,10 +18,9 @@
 
     <com.playlistapp.ui.view.CustomTextView
         android:id="@+id/version_number"
-        app:layout_constraintTop_toBottomOf="@+id/about_desc"
+        app:layout_constraintBottom_toBottomOf="@id/layout_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/about_desc"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:app_font="fonts/arial.ttf"

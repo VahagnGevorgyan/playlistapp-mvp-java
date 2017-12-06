@@ -4,6 +4,7 @@ import com.playlistapp.di.PerActivity;
 import com.playlistapp.di.module.ActivityModule;
 import com.playlistapp.ui.home.HomeActivity;
 import com.playlistapp.ui.home.about.AboutFragment;
+import com.playlistapp.ui.home.favorite.FavoritesFragment;
 import com.playlistapp.ui.home.settings.SettingsFragment;
 import com.playlistapp.ui.home.tracks.TracksFragment;
 import com.playlistapp.ui.splash.SplashActivity;
@@ -27,11 +28,9 @@ public interface ActivityComponent {
 
     void inject(AboutFragment fragment);
 
-    void inject(WebViewActivity activity);
+    void inject(FavoritesFragment fragment);
 
-//    void inject(PersonRegFragment fragment);
-//
-//    void inject(OfflineDialog offlineDialog);
+    void inject(WebViewActivity activity);
 
     void inject(NetworkStateManager networkStateManager);
 

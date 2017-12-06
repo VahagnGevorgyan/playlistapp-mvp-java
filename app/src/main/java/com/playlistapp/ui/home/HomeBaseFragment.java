@@ -1,4 +1,4 @@
-package com.playlistapp.ui.base;
+package com.playlistapp.ui.home;
 
 
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.playlistapp.eventbus.SingletonBus;
 import com.playlistapp.eventbus.event.SetMainFragmentDetailsEvent;
+import com.playlistapp.ui.base.BaseFragment;
 
 import timber.log.Timber;
 
@@ -16,7 +17,7 @@ import static com.playlistapp.Constants.EXTRA_MENU_ITEM_ID;
 /**
  * Base fragment abstract class for Main activity fragments.
  */
-public abstract class MainBaseFragment extends BaseFragment {
+public abstract class HomeBaseFragment extends BaseFragment {
 
     protected int mFragmentPosition;
     protected int mMenuItemPosition;

@@ -11,7 +11,7 @@ import com.playlistapp.R;
 import com.playlistapp.data.network.data.track.TrackItem;
 import com.playlistapp.eventbus.event.RefreshTracksEvent;
 import com.playlistapp.ui.adapter.TrackListAdapter;
-import com.playlistapp.ui.base.MainBaseFragment;
+import com.playlistapp.ui.home.HomeBaseFragment;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -24,13 +24,12 @@ import timber.log.Timber;
 
 import static com.playlistapp.Constants.EXTRA_FRAGMENT_POSITION;
 import static com.playlistapp.Constants.EXTRA_MENU_ITEM_ID;
-import static com.playlistapp.utils.FragmentUtils.DEFAULT_POSITION;
 import static com.playlistapp.utils.FragmentUtils.TRACKS_POSITION;
 
 /**
  * Tracks fragment class.
  */
-public class TracksFragment extends MainBaseFragment implements TracksMvpView {
+public class TracksFragment extends HomeBaseFragment implements TracksMvpView {
 
     public static final String TAG = TracksFragment.class.getSimpleName();
 

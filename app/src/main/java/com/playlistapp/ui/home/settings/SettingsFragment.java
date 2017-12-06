@@ -12,7 +12,7 @@ import com.playlistapp.R;
 import com.playlistapp.eventbus.SingletonBus;
 import com.playlistapp.eventbus.event.RefreshTracksEvent;
 import com.playlistapp.ui.adapter.CustomSpinnerAdapter;
-import com.playlistapp.ui.base.MainBaseFragment;
+import com.playlistapp.ui.home.HomeBaseFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +33,7 @@ import static com.playlistapp.utils.FragmentUtils.SETTINGS_POSITION;
 /**
  * Settings fragment class.
  */
-public class SettingsFragment extends MainBaseFragment implements SettingsMvpView {
+public class SettingsFragment extends HomeBaseFragment implements SettingsMvpView {
 
     public static final String TAG = SettingsFragment.class.getSimpleName();
 

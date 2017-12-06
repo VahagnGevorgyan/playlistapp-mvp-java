@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.playlistapp.BuildConfig;
 import com.playlistapp.R;
-import com.playlistapp.ui.base.MainBaseFragment;
+import com.playlistapp.ui.home.HomeBaseFragment;
 
 import javax.inject.Inject;
 
@@ -22,7 +22,7 @@ import static com.playlistapp.utils.FragmentUtils.ABOUT_POSITION;
 /**
  * About fragment class.
  */
-public class AboutFragment extends MainBaseFragment implements AboutMvpView {
+public class AboutFragment extends HomeBaseFragment implements AboutMvpView {
 
     public static final String TAG = AboutFragment.class.getSimpleName();
 

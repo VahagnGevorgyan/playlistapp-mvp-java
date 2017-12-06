@@ -52,4 +52,7 @@
     <string name="about_desc">Sample application, which demonstrate MVP, RxJava, Dagger2 on Android</string>
     <string name="about_version_number">Version %1$s</string>
 
+    <!-- FAVORITES -->
+    <string name="favorites_no_items">No favorites yet!</string>
+
 </resources>
