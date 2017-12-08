@@ -6,8 +6,6 @@ import com.playlistapp.data.network.data.track.TrackResData;
 import com.playlistapp.data.scheduler.SchedulerProvider;
 import com.playlistapp.ui.base.BasePresenter;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;

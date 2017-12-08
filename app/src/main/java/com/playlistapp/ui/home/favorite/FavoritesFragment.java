@@ -3,10 +3,12 @@ package com.playlistapp.ui.home.favorite;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.playlistapp.R;
+import com.playlistapp.ui.adapter.TrackListAdapter;
 import com.playlistapp.ui.home.HomeBaseFragment;
 
 import javax.inject.Inject;
@@ -30,10 +32,18 @@ public class FavoritesFragment extends HomeBaseFragment implements FavoritesMvpV
     @Inject
     FavoritesMvpPresenter<FavoritesMvpView> mPresenter;
 
+    @Inject
+    TrackListAdapter mAdapter;
+
+    @Inject
+    LinearLayoutManager mLayoutManager;
+
     @BindView(R.id.recyclerViewFavorites)
     RecyclerView mRecyclerViewFavorites;
     @BindView(R.id.favoritesPullToRefresh)
     SwipeRefreshLayout mFavoritesPullToRefresh;
+
+    boolean mIsLoading = false;
 
     public static FavoritesFragment newInstance(int id) {
         Bundle args = new Bundle();
@@ -60,9 +70,43 @@ public class FavoritesFragment extends HomeBaseFragment implements FavoritesMvpV
     @Override
     protected void prepareView(View rootView) {
         Timber.d("Preparing fragment elements");
-//        prepareFavoritesAdapter();
-//        prepareSwipeLayout();
+        prepareFavoritesAdapter();
+        prepareSwipeLayout();
         mPresenter.loadFavoriteItems();
+    }
+
+    /**
+     * Prepares Pull to refresh listener.
+     */
+    private void prepareSwipeLayout() {
+        Timber.d("Preparing Pull to refresh layout listeners");
+        mFavoritesPullToRefresh.setOnRefreshListener(() -> {
+            Timber.d("Trying to refresh order items list");
+//            mPresenter.loadTrackItems(); // TODO: Load data from DB
+        });
+    }
+
+    /**
+     * Prepares Favorites list view adapter.
+     */
+    private void prepareFavoritesAdapter() {
+        Timber.d("Preparing \"Favorites\" list view adapter");
+        mRecyclerViewFavorites.setLayoutManager(mLayoutManager);
+        mRecyclerViewFavorites.setAdapter(mAdapter);
+        mRecyclerViewFavorites.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(dy > 0) {
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+
+                    if (!mIsLoading && totalItemCount <= (lastVisibleItem + 5)) {
+//                        mPresenter.nextTrackItems(); // TODO: Load next data from DB
+                        mIsLoading = true;
+                    }
+                }
+            }
+        });
     }
 
     @Override
