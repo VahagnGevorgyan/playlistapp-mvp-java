@@ -26,6 +26,18 @@ public class FavoritesPresenter<V extends FavoritesMvpView> extends BasePresente
 
     @Override
     public void loadFavoriteItems() {
+        if (!isViewAttached()) {
+            return;
+        }
+        getMvpView().showProgressBar();
+
+        // TODO : Get Data from local SQLite database
+        // TODO : Fetching data ???
+
+    }
+
+    @Override
+    public void nextItems() {
 
     }
 }

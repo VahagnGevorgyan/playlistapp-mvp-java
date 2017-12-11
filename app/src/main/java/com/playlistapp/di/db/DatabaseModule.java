@@ -7,7 +7,7 @@ import com.playlistapp.Constants;
 import com.playlistapp.data.db.AppDatabase;
 import com.playlistapp.data.db.AppDbHelper;
 import com.playlistapp.data.db.DbHelper;
-import com.playlistapp.data.db.model.QuestionDao;
+import com.playlistapp.data.db.model.TrackDao;
 import com.playlistapp.di.ApplicationContext;
 
 import javax.inject.Singleton;
@@ -37,14 +37,13 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    QuestionDao provideQuestionDao(AppDatabase database) {
-        return database.questionDao();
+    TrackDao provideTrackDao(AppDatabase database) {
+        return database.trackDao();
     }
 
     @Provides
     @Singleton
-    DbHelper provideDbHelper(QuestionDao questionDao) {
-        return new AppDbHelper(questionDao);
+    DbHelper provideDbHelper(TrackDao trackDao) {
+        return new AppDbHelper(trackDao);
     }
-
 }

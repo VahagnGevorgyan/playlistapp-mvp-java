@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import com.playlistapp.data.db.DbHelper;
 import com.playlistapp.data.db.model.Question;
 import com.playlistapp.data.network.api.ApiHelper;
+import com.playlistapp.data.network.data.track.TrackItem;
 import com.playlistapp.data.network.data.track.TrackResData;
 import com.playlistapp.data.settings.AppSettingsHelper;
 import com.playlistapp.di.ApplicationContext;
@@ -63,18 +64,18 @@ public class AppDataManager implements DataManager {
 
 
     @Override
-    public Observable<List<Question>> getAllQuestions() {
-        return mDbHelper.getAllQuestions();
+    public Observable<List<TrackItem>> getAllTracks() {
+        return mDbHelper.getAllTracks();
     }
 
     @Override
-    public Observable<Boolean> saveQuestion(Question question) {
-        return mDbHelper.saveQuestion(question);
+    public Observable<Boolean> saveTrack(TrackItem trackItem) {
+        return mDbHelper.saveTrack(trackItem);
     }
 
     @Override
-    public Observable<Boolean> saveQuestionList(List<Question> questionList) {
-        return mDbHelper.saveQuestionList(questionList);
+    public Observable<Boolean> saveTrackList(List<TrackItem> trackItems) {
+        return mDbHelper.saveTrackList(trackItems);
     }
 
     @Override

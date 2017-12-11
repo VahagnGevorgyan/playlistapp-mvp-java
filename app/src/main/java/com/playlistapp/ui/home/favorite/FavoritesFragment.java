@@ -82,7 +82,7 @@ public class FavoritesFragment extends HomeBaseFragment implements FavoritesMvpV
         Timber.d("Preparing Pull to refresh layout listeners");
         mFavoritesPullToRefresh.setOnRefreshListener(() -> {
             Timber.d("Trying to refresh order items list");
-//            mPresenter.loadTrackItems(); // TODO: Load data from DB
+            mPresenter.loadFavoriteItems();
         });
     }
 
@@ -101,7 +101,7 @@ public class FavoritesFragment extends HomeBaseFragment implements FavoritesMvpV
                     int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
 
                     if (!mIsLoading && totalItemCount <= (lastVisibleItem + 5)) {
-//                        mPresenter.nextTrackItems(); // TODO: Load next data from DB
+                        mPresenter.nextItems();
                         mIsLoading = true;
                     }
                 }

@@ -1,7 +1,7 @@
 package com.playlistapp.data.db;
 
 
-import com.playlistapp.data.db.model.Question;
+import com.playlistapp.data.network.data.track.TrackItem;
 
 import java.util.List;
 
@@ -10,10 +10,10 @@ import io.reactivex.Observable;
 
 public interface DbHelper {
 
-    Observable<List<Question>> getAllQuestions();
+    Observable<List<TrackItem>> getAllTracks();
 
-    Observable<Boolean> saveQuestion(Question question);
+    Observable<Boolean> saveTrack(TrackItem trackItem);
 
-    Observable<Boolean> saveQuestionList(List<Question> questionList);
+    Observable<Boolean> saveTrackList(List<TrackItem> trackItems);
 
 }

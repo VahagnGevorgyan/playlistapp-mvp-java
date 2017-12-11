@@ -1,58 +1,111 @@
 package com.playlistapp.data.network.data.track;
 
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import io.reactivex.annotations.NonNull;
+
+@Entity(tableName = "tracks")
 public class TrackItem {
 
+    @Expose
+    @SerializedName("id")
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "Id")
+    private Long mId;
     @SerializedName("name")
     @Expose
+    @NonNull
+    @ColumnInfo(name = "name")
     private String mName;
     @SerializedName("duration")
     @Expose
+    @NonNull
+    @ColumnInfo(name = "duration")
     private String mDuration;
     @SerializedName("listeners")
     @Expose
+    @NonNull
+    @ColumnInfo(name = "listeners")
     private String mListeners;
     @SerializedName("mbid")
     @Expose
     private String mBid;
     @SerializedName("url")
     @Expose
+    @NonNull
+    @ColumnInfo(name = "url")
     private String mUrl;
     @SerializedName("streamable")
     @Expose
+    @Ignore
     private StreamAble mStreamAble;
     @SerializedName("artist")
     @Expose
+    @Ignore
     private Artist mArtist;
     @SerializedName("image")
     @Expose
+    @Ignore
     private List<Image> mImageList = null;
 
     private boolean mIsFavorite;
 
+    public Long getId() {
+        return mId;
+    }
+
+    public void setId(Long id) {
+        mId = id;
+    }
+
     public String getName() {
         return mName;
+    }
+
+    public void setName(String name) {
+        this.mName = name;
     }
 
     public String getDuration() {
         return mDuration;
     }
 
+    public void setDuration(String duration) {
+        mDuration = duration;
+    }
+
     public String getListeners() {
         return mListeners;
+    }
+
+    public void setListeners(String listeners) {
+        mListeners = listeners;
     }
 
     public String getBid() {
         return mBid;
     }
 
+    public void setBid(String bId) {
+        mBid = bId;
+    }
+
     public String getUrl() {
         return mUrl;
+    }
+
+    public void setUrl(String url) {
+        mUrl = url;
     }
 
     public StreamAble getStreamAble() {

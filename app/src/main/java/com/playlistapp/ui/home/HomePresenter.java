@@ -93,17 +93,17 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V>
                     Timber.d(":: time : " + aLong);
 
                     getCompositeDisposable().add(getDataManager()
-                            .getAllQuestions()
+                            .getAllTracks()
                             .subscribeOn(getSchedulerProvider().io())
                             .observeOn(getSchedulerProvider().ui())
-                            .subscribe(questionList -> {
+                            .subscribe(trackItems -> {
                                 if (!isViewAttached()) {
                                     return;
                                 }
 
-                                Timber.d(":: questionList : " + questionList);
-                                if (!CollectionUtils.isEmpty(questionList)) {
-                                    Timber.d(":: text " + questionList.get(0).getQuestionText());
+                                Timber.d(":: trackItems : " + trackItems);
+                                if (!CollectionUtils.isEmpty(trackItems)) {
+                                    Timber.d(":: name : " + trackItems.get(0).getName());
                                 }
                             }));
                 });

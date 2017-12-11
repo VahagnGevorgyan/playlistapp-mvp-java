@@ -1,7 +1,7 @@
 package com.playlistapp.data.db;
 
-import com.playlistapp.data.db.model.Question;
-import com.playlistapp.data.db.model.QuestionDao;
+import com.playlistapp.data.db.model.TrackDao;
+import com.playlistapp.data.network.data.track.TrackItem;
 
 import java.util.List;
 
@@ -14,30 +14,30 @@ import io.reactivex.Observable;
 @Singleton
 public class AppDbHelper implements DbHelper {
 
-    private final QuestionDao mQuestionDao;
+    private final TrackDao mTrackDao;
 
     @Inject
-    public AppDbHelper(QuestionDao questionDao) {
-        mQuestionDao = questionDao;
+    public AppDbHelper(TrackDao trackDao) {
+        mTrackDao = trackDao;
     }
 
     @Override
-    public Observable<List<Question>> getAllQuestions() {
-        return Observable.fromCallable(mQuestionDao::loadAllQuestions);
+    public Observable<List<TrackItem>> getAllTracks() {
+        return Observable.fromCallable(mTrackDao::loadAllTracks);
     }
 
     @Override
-    public Observable<Boolean> saveQuestion(final Question question) {
+    public Observable<Boolean> saveTrack(final TrackItem track) {
         return Observable.fromCallable(() -> {
-            mQuestionDao.insertQuestion(question);
+            mTrackDao.insertTrack(track);
             return true;
         });
     }
 
     @Override
-    public Observable<Boolean> saveQuestionList(final List<Question> questionList) {
+    public Observable<Boolean> saveTrackList(final List<TrackItem> trackItems) {
         return Observable.fromCallable(() -> {
-            mQuestionDao.insertAll(questionList);
+            mTrackDao.insertAll(trackItems);
             return true;
         });
     }
