@@ -8,8 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.playlistapp.R;
+import com.playlistapp.data.network.data.track.TrackItem;
+import com.playlistapp.eventbus.event.FavoriteClickedEvent;
 import com.playlistapp.ui.adapter.TrackListAdapter;
 import com.playlistapp.ui.home.HomeBaseFragment;
+import com.squareup.otto.Subscribe;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -107,6 +112,29 @@ public class FavoritesFragment extends HomeBaseFragment implements FavoritesMvpV
                 }
             }
         });
+    }
+
+    @Override
+    public void updateItems(List<TrackItem> items) {
+        Timber.d("Updating favorite list items " + items);
+        mFavoritesPullToRefresh.post(
+                () -> mFavoritesPullToRefresh.setRefreshing(false));
+        mAdapter.updateTrackList(items);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void addItems(List<TrackItem> items) {
+        Timber.d("Adding new items to favorite list items " + items);
+        mAdapter.addTrackList(items);
+        mAdapter.notifyDataSetChanged();
+        mIsLoading = false;
+    }
+
+    @Subscribe
+    public void onFavoriteClickedEvent(FavoriteClickedEvent event) {
+        Timber.d("Favorite item is clicked " + event.getItem());
+        mPresenter.setFavoriteItem(event.getItem());
     }
 
     @Override

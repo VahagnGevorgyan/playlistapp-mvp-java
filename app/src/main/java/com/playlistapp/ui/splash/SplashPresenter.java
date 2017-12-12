@@ -1,7 +1,7 @@
 package com.playlistapp.ui.splash;
 
-import com.playlistapp.data.DataManager;
-import com.playlistapp.data.scheduler.SchedulerProvider;
+import com.playlistapp.data.IDataManager;
+import com.playlistapp.data.scheduler.ISchedulerProvider;
 import com.playlistapp.ui.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -22,11 +22,11 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
 
     @Inject
     public SplashPresenter(
-            DataManager dataManager,
-            SchedulerProvider schedulerProvider,
+            IDataManager IDataManager,
+            ISchedulerProvider ISchedulerProvider,
             CompositeDisposable compositeDisposable
     ) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(IDataManager, ISchedulerProvider, compositeDisposable);
     }
 
     @Override

@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.playlistapp.App;
-import com.playlistapp.data.DataManager;
+import com.playlistapp.data.IDataManager;
 import com.playlistapp.di.ApplicationContext;
 import com.playlistapp.di.module.ApplicationModule;
 
@@ -26,5 +26,5 @@ public interface ApplicationComponent {
 
     Application application();
 
-    DataManager getDataManager();
+    IDataManager getDataManager();
 }

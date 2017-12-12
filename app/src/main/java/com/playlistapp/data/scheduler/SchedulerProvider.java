@@ -2,14 +2,24 @@ package com.playlistapp.data.scheduler;
 
 
 import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
+public class SchedulerProvider implements ISchedulerProvider {
 
-public interface SchedulerProvider {
+    @Override
+    public Scheduler ui() {
+        return AndroidSchedulers.mainThread();
+    }
 
-    Scheduler ui();
+    @Override
+    public Scheduler computation() {
+        return Schedulers.computation();
+    }
 
-    Scheduler computation();
-
-    Scheduler io();
+    @Override
+    public Scheduler io() {
+        return Schedulers.io();
+    }
 
 }

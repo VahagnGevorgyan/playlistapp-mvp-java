@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
 
-import com.playlistapp.data.scheduler.AppSchedulerProvider;
 import com.playlistapp.data.scheduler.SchedulerProvider;
+import com.playlistapp.data.scheduler.ISchedulerProvider;
 import com.playlistapp.di.ActivityContext;
 import com.playlistapp.di.PerActivity;
 import com.playlistapp.ui.adapter.TrackListAdapter;
@@ -65,8 +65,8 @@ public class ActivityModule {
     }
 
     @Provides
-    SchedulerProvider provideSchedulerProvider() {
-        return new AppSchedulerProvider();
+    ISchedulerProvider provideSchedulerProvider() {
+        return new SchedulerProvider();
     }
 
     @Provides

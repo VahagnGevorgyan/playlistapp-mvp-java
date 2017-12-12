@@ -1,7 +1,7 @@
 package com.playlistapp.data.settings;
 
 
-import com.playlistapp.data.DataManager;
+import com.playlistapp.data.IDataManager;
 import com.playlistapp.utils.StringUtils;
 
 /**
@@ -29,10 +29,10 @@ public class ProfileSettings extends BaseSettings {
 
     public int getCurrentUserLoggedInMode() {
         return getPrefs().getInt(AppPreferences.Settings.LOGGED_IN_MODE.key(),
-                DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType());
+                IDataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType());
     }
 
-    public void setCurrentUserLoggedInMode(DataManager.LoggedInMode mode) {
+    public void setCurrentUserLoggedInMode(IDataManager.LoggedInMode mode) {
         getPrefs().setSetting(AppPreferences.Settings.LOGGED_IN_MODE, mode.getType());
     }
 

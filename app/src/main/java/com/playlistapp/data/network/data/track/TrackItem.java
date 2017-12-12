@@ -15,7 +15,6 @@ import io.reactivex.annotations.NonNull;
 
 @Entity(tableName = "tracks")
 public class TrackItem {
-
     @Expose
     @SerializedName("id")
     @NonNull
@@ -39,6 +38,8 @@ public class TrackItem {
     private String mListeners;
     @SerializedName("mbid")
     @Expose
+    @NonNull
+    @ColumnInfo(name = "b_id")
     private String mBid;
     @SerializedName("url")
     @Expose
@@ -57,7 +58,9 @@ public class TrackItem {
     @Expose
     @Ignore
     private List<Image> mImageList = null;
-
+    @SerializedName("isFavorite")
+    @Expose
+    @Ignore
     private boolean mIsFavorite;
 
     public Long getId() {
@@ -138,6 +141,7 @@ public class TrackItem {
                 ", mStreamAble = " + mStreamAble +
                 ", mArtist = " + mArtist +
                 ", mImageList = " + mImageList +
+                ", mIsFavorite = " + mIsFavorite +
                 " }";
     }
 

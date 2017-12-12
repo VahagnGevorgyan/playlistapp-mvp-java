@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,12 +20,15 @@ import com.playlistapp.R;
 import com.playlistapp.data.network.data.track.Image;
 import com.playlistapp.data.network.data.track.TrackItem;
 import com.playlistapp.eventbus.SingletonBus;
+import com.playlistapp.eventbus.event.FavoriteClickedEvent;
 import com.playlistapp.eventbus.event.OpenWebViewEvent;
 import com.playlistapp.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
@@ -108,42 +110,34 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
         return 0;
     }
 
-    class TrackViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class TrackViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.textViewName)
         TextView textViewName;
+        @BindView(R.id.imageViewTrack)
         ImageView imageViewTrack;
+        @BindView(R.id.textViewDuration)
         TextView textViewDuration;
+        @BindView(R.id.textViewArtist)
         TextView textViewArtist;
-        ImageButton btnFavorite;
+        @BindView(R.id.loadingBar)
         ProgressBar loadingBar;
 
-        TrackViewHolder(View itemView) {
-            super(itemView);
-            textViewName = itemView.findViewById(R.id.textViewName);
-            imageViewTrack = itemView.findViewById(R.id.imageViewTrack);
-            textViewDuration = itemView.findViewById(R.id.textViewDuration);
-            textViewArtist = itemView.findViewById(R.id.textViewArtist);
-            btnFavorite = itemView.findViewById(R.id.btnFavorite);
-            loadingBar = itemView.findViewById(R.id.loadingBar);
-            itemView.setOnClickListener(this);
+        TrackViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
         }
 
-        @Override
-        public void onClick(View v) {
+        @OnClick(R.id.itemLayout)
+        void onItemClicked() {
             SingletonBus.getInstance().post(
                     new OpenWebViewEvent(mList.get(getAdapterPosition()).getUrl(), mList.get(getAdapterPosition()).getName()));
         }
 
         @OnClick(R.id.btnFavorite)
-        public void onFavoriteClicked(View v) {
-            if (mList.get(getAdapterPosition()).isFavorite()) {
-                // TODO: 1. Remove from DB favorites table
-                // TODO: 2. Change favorite item icon : OFF
-            } else {
-                // TODO: 1. Add item to DB favorites table
-                // TODO: 2. Change favorite item icon : ON
-            }
-
+        void onFavoriteClicked() {
+            SingletonBus.getInstance().post(
+                    new FavoriteClickedEvent(mList.get(getAdapterPosition()), getAdapterPosition()));
         }
     }
 }

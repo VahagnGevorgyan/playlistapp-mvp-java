@@ -1,7 +1,7 @@
 package com.playlistapp.ui.home;
 
-import com.playlistapp.data.DataManager;
-import com.playlistapp.data.scheduler.SchedulerProvider;
+import com.playlistapp.data.IDataManager;
+import com.playlistapp.data.scheduler.ISchedulerProvider;
 import com.playlistapp.ui.base.BasePresenter;
 import com.playlistapp.utils.CollectionUtils;
 
@@ -25,11 +25,11 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V>
 
     @Inject
     public HomePresenter(
-            DataManager dataManager,
-            SchedulerProvider schedulerProvider,
+            IDataManager IDataManager,
+            ISchedulerProvider ISchedulerProvider,
             CompositeDisposable compositeDisposable
     ) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(IDataManager, ISchedulerProvider, compositeDisposable);
     }
 
     @Override
@@ -38,11 +38,16 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V>
             return;
         }
 
-//        Question question = new Question();
-//        question.setId(1L);
-//        question.setQuestionText("Question 1");
+        // TODO: Remove after testing
+//        TrackItem item = new TrackItem();
+//        item.setName("track 1");
+//        item.setBid("111");
+//        item.setDuration("10");
+//        item.setIsFavorite(true);
+//        item.setListeners("aaaa");
+//        item.setUrl("url");
 //        getCompositeDisposable().add(getDataManager()
-//                .saveQuestion(question)
+//                .saveTrack(item)
 //                .subscribeOn(getSchedulerProvider().io())
 //                .observeOn(getSchedulerProvider().ui())
 //                .subscribe(inserted -> {
@@ -50,6 +55,8 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V>
 //                        return;
 //                    }
 //                    Timber.d(":: inserted " + inserted);
+//                }, throwable -> {
+//                    Timber.e(":: error on inserted : " + throwable.getMessage());
 //                }));
 
 

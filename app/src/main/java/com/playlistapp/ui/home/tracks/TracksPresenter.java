@@ -1,13 +1,11 @@
 package com.playlistapp.ui.home.tracks;
 
-import com.playlistapp.data.DataManager;
+import com.playlistapp.data.IDataManager;
 import com.playlistapp.data.network.data.error.ApiError;
 import com.playlistapp.data.network.data.track.TrackItem;
 import com.playlistapp.data.network.data.track.TrackResData;
-import com.playlistapp.data.scheduler.SchedulerProvider;
+import com.playlistapp.data.scheduler.ISchedulerProvider;
 import com.playlistapp.ui.base.BasePresenter;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,8 +22,8 @@ public class TracksPresenter<V extends TracksMvpView> extends BasePresenter<V>
 
     @Inject
     public TracksPresenter(
-            DataManager dataManager,
-            SchedulerProvider schedulerProvider,
+            IDataManager dataManager,
+            ISchedulerProvider schedulerProvider,
             CompositeDisposable compositeDisposable
     ) {
         super(dataManager, schedulerProvider, compositeDisposable);
@@ -40,37 +38,16 @@ public class TracksPresenter<V extends TracksMvpView> extends BasePresenter<V>
         }
         getMvpView().showProgressBar();
 
-        getCompositeDisposable().add(getDataManager()
-                .getAllTracks()
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
-                .subscribe(
-                        trackItems -> {
-                            Timber.d("Request all \"Tracks\" from local database was successful " + trackItems);
-                            // TODO: fetch data from SQLite database // check from MVP-Arch.
-                        },
-                        throwable -> {
-                            Timber.e("Request all \"Tracks\" from local database was failed " + throwable.getMessage());
+        mPageId = 1;
+        callTracksApi(mPageId, trackResData -> {
+            Timber.d("Api request \"doTracksApiCall\" was successful " + trackResData.getTrackItems());
 
-                            if (!isViewAttached()) {
-                                return;
-                            }
-                            getMvpView().hideProgressBar();
-                            if (throwable instanceof ApiError) {
-                                handleApiError((ApiError) throwable);
-                            }
-                        }));
-
-//        mPageId = 1;
-//        callTracksApi(mPageId, trackResData -> {
-//            Timber.d("Api request \"doTracksApiCall\" was successful " + trackResData.getTrackItems());
-//
-//            if (!isViewAttached()) {
-//                return;
-//            }
-//            getMvpView().hideProgressBar();
-//            getMvpView().updateTracks(trackResData.getTrackItems());
-//        });
+            if (!isViewAttached()) {
+                return;
+            }
+            getMvpView().hideProgressBar();
+            getMvpView().updateTracks(trackResData.getTrackItems());
+        });
     }
 
     @Override
@@ -91,6 +68,11 @@ public class TracksPresenter<V extends TracksMvpView> extends BasePresenter<V>
             getMvpView().hideProgressBar();
             getMvpView().addTracks(trackResData.getTrackItems());
         });
+    }
+
+    @Override
+    public void setFavoriteItem(TrackItem item) {
+
     }
 
     /**

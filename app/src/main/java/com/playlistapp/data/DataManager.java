@@ -1,73 +1,127 @@
 package com.playlistapp.data;
 
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.playlistapp.data.db.DbHelper;
-import com.playlistapp.data.db.model.Question;
+import com.playlistapp.data.db.IDbHelper;
 import com.playlistapp.data.network.api.ApiHelper;
 import com.playlistapp.data.network.data.track.TrackItem;
 import com.playlistapp.data.network.data.track.TrackResData;
-import com.playlistapp.data.settings.AppSettingsHelper;
+import com.playlistapp.data.settings.IAppSettingsHelper;
+import com.playlistapp.di.ApplicationContext;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Observable;
 
-public interface DataManager {
+@Singleton
+public class DataManager implements IDataManager {
 
-    ApiHelper getApiHelper();
+    private final Context mContext;
+    private final ApiHelper mApiHelper;
+    private final IAppSettingsHelper mIAppSettingsHelper;
+    private final IDbHelper mIDbHelper;
 
-    AppSettingsHelper getSettingsHelper();
-
-    DbHelper getDbHelper();
-
-    Observable<TrackResData> doTracksApiCall(@NonNull String country,
-                                             @Nullable Integer limit,
-                                             @Nullable Integer page);
-
-    Observable<List<TrackItem>> getAllTracks();
-
-    Observable<Boolean> saveTrack(TrackItem trackItem);
-
-    Observable<Boolean> saveTrackList(List<TrackItem> trackItems);
-
-    void setUserAsLoggedOut();
-
-
-    void setCurrentUserLoggedInMode(LoggedInMode loggedInMode);
-
-    void setUserId(int userId);
-
-    void setAuthToken(String authToken);
-
-    boolean isUserRegistered();
-
-    boolean isUserRegisterCompleted();
-
-    void setRegisterCompleted(boolean isRegisterCompleted);
-
-    void setRegisterKey(String key);
-
-    int getCurrentUserLoggedInMode();
-
-
-    enum LoggedInMode {
-
-        LOGGED_IN_MODE_LOGGED_OUT(0),
-        LOGGED_IN_MODE_GOOGLE(1),
-        LOGGED_IN_MODE_FB(2),
-        LOGGED_IN_MODE_SERVER(3);
-
-        private final int mType;
-
-        LoggedInMode(int type) {
-            mType = type;
-        }
-
-        public int getType() {
-            return mType;
-        }
+    @Inject
+    public DataManager(@ApplicationContext Context context,
+                       ApiHelper apiHelper,
+                       IAppSettingsHelper IAppSettingsHelper,
+                       IDbHelper IDbHelper) {
+        mContext = context;
+        mApiHelper = apiHelper;
+        mIAppSettingsHelper = IAppSettingsHelper;
+        mIDbHelper = IDbHelper;
     }
+
+
+    @Override
+    public ApiHelper getApiHelper() {
+        return mApiHelper;
+    }
+
+    @Override
+    public IAppSettingsHelper getSettingsHelper() {
+        return mIAppSettingsHelper;
+    }
+
+    @Override
+    public IDbHelper getDbHelper() {
+        return mIDbHelper;
+    }
+
+    @Override
+    public Observable<TrackResData> doTracksApiCall(@NonNull String country,
+                                                    @Nullable Integer limit,
+                                                    @Nullable Integer page) {
+        return mApiHelper.doTrackListCall(country, limit, page);
+    }
+
+
+    @Override
+    public Observable<List<TrackItem>> getAllTracks() {
+        return mIDbHelper.getAllTracks();
+    }
+
+    @Override
+    public Observable<Boolean> saveTrack(TrackItem trackItem) {
+        return mIDbHelper.saveTrack(trackItem);
+    }
+
+    @Override
+    public Observable<Boolean> saveTrackList(List<TrackItem> trackItems) {
+        return mIDbHelper.saveTrackList(trackItems);
+    }
+
+    @Override
+    public void setUserAsLoggedOut() {
+        setCurrentUserLoggedInMode(IDataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT);
+        mIAppSettingsHelper.profile().clearUserData();
+    }
+
+    @Override
+    public void setCurrentUserLoggedInMode(LoggedInMode loggedInMode) {
+        mIAppSettingsHelper.profile().setCurrentUserLoggedInMode(loggedInMode);
+    }
+
+    @Override
+    public void setUserId(int userId) {
+        mIAppSettingsHelper.profile().setUserId(userId);
+    }
+
+    @Override
+    public void setAuthToken(String authToken) {
+        mIAppSettingsHelper.profile().setAuthToken(authToken);
+    }
+
+    @Override
+    public boolean isUserRegistered() {
+        return mIAppSettingsHelper.profile().isUserRegistered();
+    }
+
+    @Override
+    public boolean isUserRegisterCompleted() {
+        return mIAppSettingsHelper.profile().isUserRegisterCompleted();
+    }
+
+    @Override
+    public int getCurrentUserLoggedInMode() {
+        return mIAppSettingsHelper.profile().getCurrentUserLoggedInMode();
+    }
+
+
+    @Override
+    public void setRegisterCompleted(boolean isRegisterCompleted) {
+        mIAppSettingsHelper.profile().setRegisterCompleted(isRegisterCompleted);
+    }
+
+    @Override
+    public void setRegisterKey(String key) {
+        mIAppSettingsHelper.profile().setRegKey(key);
+    }
+
 }

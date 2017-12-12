@@ -5,8 +5,8 @@ import android.content.Context;
 
 import com.playlistapp.Constants;
 import com.playlistapp.data.db.AppDatabase;
-import com.playlistapp.data.db.AppDbHelper;
 import com.playlistapp.data.db.DbHelper;
+import com.playlistapp.data.db.IDbHelper;
 import com.playlistapp.data.db.model.TrackDao;
 import com.playlistapp.di.ApplicationContext;
 
@@ -43,7 +43,7 @@ public class DatabaseModule {
 
     @Provides
     @Singleton
-    DbHelper provideDbHelper(TrackDao trackDao) {
-        return new AppDbHelper(trackDao);
+    IDbHelper provideDbHelper(TrackDao trackDao) {
+        return new DbHelper(trackDao);
     }
 }

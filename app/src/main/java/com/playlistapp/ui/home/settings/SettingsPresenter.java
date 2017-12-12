@@ -1,11 +1,10 @@
 package com.playlistapp.ui.home.settings;
 
-import com.playlistapp.data.DataManager;
-import com.playlistapp.data.scheduler.SchedulerProvider;
+import com.playlistapp.data.IDataManager;
+import com.playlistapp.data.scheduler.ISchedulerProvider;
 import com.playlistapp.ui.base.BasePresenter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -23,11 +22,11 @@ public class SettingsPresenter<V extends SettingsMvpView> extends BasePresenter<
 
     @Inject
     public SettingsPresenter(
-            DataManager dataManager,
-            SchedulerProvider schedulerProvider,
+            IDataManager IDataManager,
+            ISchedulerProvider ISchedulerProvider,
             CompositeDisposable compositeDisposable
     ) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(IDataManager, ISchedulerProvider, compositeDisposable);
     }
 
     @Override

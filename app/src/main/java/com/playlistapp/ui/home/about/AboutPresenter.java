@@ -1,7 +1,7 @@
 package com.playlistapp.ui.home.about;
 
-import com.playlistapp.data.DataManager;
-import com.playlistapp.data.scheduler.SchedulerProvider;
+import com.playlistapp.data.IDataManager;
+import com.playlistapp.data.scheduler.ISchedulerProvider;
 import com.playlistapp.ui.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -17,11 +17,11 @@ public class AboutPresenter<V extends AboutMvpView> extends BasePresenter<V>
 
     @Inject
     public AboutPresenter(
-            DataManager dataManager,
-            SchedulerProvider schedulerProvider,
+            IDataManager IDataManager,
+            ISchedulerProvider ISchedulerProvider,
             CompositeDisposable compositeDisposable
     ) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(IDataManager, ISchedulerProvider, compositeDisposable);
     }
 
 }

@@ -5,15 +5,14 @@ import android.content.Context;
 
 import com.playlistapp.Constants;
 import com.playlistapp.R;
-import com.playlistapp.data.AppDataManager;
 import com.playlistapp.data.DataManager;
-import com.playlistapp.data.db.AppDbHelper;
-import com.playlistapp.data.db.DbHelper;
-import com.playlistapp.data.settings.AppSettings;
+import com.playlistapp.data.IDataManager;
 import com.playlistapp.data.settings.AppSettingsHelper;
+import com.playlistapp.data.settings.IAppSettingsHelper;
 import com.playlistapp.di.ApplicationContext;
-import com.playlistapp.di.db.DatabaseInfo;
 import com.playlistapp.di.PreferenceInfo;
+import com.playlistapp.di.api.ApiModule;
+import com.playlistapp.di.db.DatabaseModule;
 
 import javax.inject.Singleton;
 
@@ -23,8 +22,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 
 @Module(includes = {
-        com.playlistapp.di.api.ApiModule.class,
-        com.playlistapp.di.db.DatabaseModule.class
+        ApiModule.class,
+        DatabaseModule.class
 })
 public class ApplicationModule {
 
@@ -53,13 +52,13 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DataManager provideDataManager(AppDataManager appDataManager) {
+    IDataManager provideDataManager(DataManager appDataManager) {
         return appDataManager;
     }
 
     @Provides
     @Singleton
-    AppSettingsHelper provideAppSettingsHelper(AppSettings appAppSettingsHelper) {
+    IAppSettingsHelper provideAppSettingsHelper(AppSettingsHelper appAppSettingsHelper) {
         return appAppSettingsHelper;
     }
 

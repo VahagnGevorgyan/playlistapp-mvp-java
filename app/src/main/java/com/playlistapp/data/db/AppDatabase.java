@@ -3,7 +3,6 @@ package com.playlistapp.data.db;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
-import com.playlistapp.data.db.model.Question;
 import com.playlistapp.data.db.model.TrackDao;
 import com.playlistapp.data.network.data.track.TrackItem;
 

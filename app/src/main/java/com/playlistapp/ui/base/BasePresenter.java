@@ -2,9 +2,9 @@ package com.playlistapp.ui.base;
 
 
 import com.playlistapp.R;
-import com.playlistapp.data.DataManager;
+import com.playlistapp.data.IDataManager;
 import com.playlistapp.data.network.data.error.ApiError;
-import com.playlistapp.data.scheduler.SchedulerProvider;
+import com.playlistapp.data.scheduler.ISchedulerProvider;
 
 import javax.inject.Inject;
 
@@ -17,20 +17,20 @@ import io.reactivex.disposables.CompositeDisposable;
  */
 public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
-    private final DataManager mDataManager;
-    private final SchedulerProvider mSchedulerProvider;
+    private final IDataManager mIDataManager;
+    private final ISchedulerProvider mISchedulerProvider;
     private final CompositeDisposable mCompositeDisposable;
 
     private V mMvpView;
 
     @Inject
     public BasePresenter(
-            DataManager dataManager,
-            SchedulerProvider schedulerProvider,
+            IDataManager IDataManager,
+            ISchedulerProvider ISchedulerProvider,
             CompositeDisposable compositeDisposable
     ) {
-        this.mDataManager = dataManager;
-        this.mSchedulerProvider = schedulerProvider;
+        this.mIDataManager = IDataManager;
+        this.mISchedulerProvider = ISchedulerProvider;
         this.mCompositeDisposable = compositeDisposable;
     }
 
@@ -53,12 +53,12 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
         return mMvpView;
     }
 
-    public DataManager getDataManager() {
-        return mDataManager;
+    public IDataManager getDataManager() {
+        return mIDataManager;
     }
 
-    public SchedulerProvider getSchedulerProvider() {
-        return mSchedulerProvider;
+    public ISchedulerProvider getSchedulerProvider() {
+        return mISchedulerProvider;
     }
 
     public CompositeDisposable getCompositeDisposable() {

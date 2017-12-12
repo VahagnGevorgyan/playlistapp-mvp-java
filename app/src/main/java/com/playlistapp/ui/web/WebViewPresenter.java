@@ -1,8 +1,8 @@
 package com.playlistapp.ui.web;
 
 
-import com.playlistapp.data.DataManager;
-import com.playlistapp.data.scheduler.SchedulerProvider;
+import com.playlistapp.data.IDataManager;
+import com.playlistapp.data.scheduler.ISchedulerProvider;
 import com.playlistapp.ui.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -18,11 +18,11 @@ public class WebViewPresenter <V extends WebViewMvpView> extends BasePresenter<V
 
     @Inject
     public WebViewPresenter(
-            DataManager dataManager,
-            SchedulerProvider schedulerProvider,
+            IDataManager IDataManager,
+            ISchedulerProvider ISchedulerProvider,
             CompositeDisposable compositeDisposable
     ) {
-        super(dataManager, schedulerProvider, compositeDisposable);
+        super(IDataManager, ISchedulerProvider, compositeDisposable);
     }
 
     @Override

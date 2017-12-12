@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.playlistapp.R;
 import com.playlistapp.data.network.data.track.TrackItem;
+import com.playlistapp.eventbus.event.FavoriteClickedEvent;
 import com.playlistapp.eventbus.event.RefreshTracksEvent;
 import com.playlistapp.ui.adapter.TrackListAdapter;
 import com.playlistapp.ui.home.HomeBaseFragment;
@@ -134,6 +135,12 @@ public class TracksFragment extends HomeBaseFragment implements TracksMvpView {
     public void onRefreshTracksEvent(RefreshTracksEvent event) {
         Timber.d("Trying to refresh track list items");
         mPresenter.loadTrackItems();
+    }
+
+    @Subscribe
+    public void onFavoriteClickedEvent(FavoriteClickedEvent event) {
+        Timber.d("Favorite item is clicked " + event.getItem());
+        mPresenter.setFavoriteItem(event.getItem());
     }
 
     @Override
