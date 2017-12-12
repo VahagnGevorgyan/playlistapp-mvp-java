@@ -11,4 +11,6 @@ public interface TracksMvpView extends MvpView {
     void updateTracks(List<TrackItem> trackItems);
 
     void addTracks(List<TrackItem> trackItems);
+
+    void trackItemUpdated(TrackItem item, int position);
 }

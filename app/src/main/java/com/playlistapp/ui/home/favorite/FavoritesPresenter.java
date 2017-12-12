@@ -60,7 +60,7 @@ public class FavoritesPresenter<V extends FavoritesMvpView> extends BasePresente
     }
 
     @Override
-    public void setFavoriteItem(TrackItem item) {
+    public void setFavoriteItem(TrackItem item, int position) {
 
     }
 }

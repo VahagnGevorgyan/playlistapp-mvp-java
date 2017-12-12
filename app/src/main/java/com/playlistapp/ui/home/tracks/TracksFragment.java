@@ -131,6 +131,14 @@ public class TracksFragment extends HomeBaseFragment implements TracksMvpView {
         mIsLoading = false;
     }
 
+    @Override
+    public void trackItemUpdated(TrackItem item, int position) {
+        Timber.d("Track item is updated " + item.isFavorite());
+        item.setIsFavorite(!item.isFavorite());
+        mAdapter.updateTrackItem(item, position);
+        mAdapter.notifyDataSetChanged();
+    }
+
     @Subscribe
     public void onRefreshTracksEvent(RefreshTracksEvent event) {
         Timber.d("Trying to refresh track list items");
@@ -140,7 +148,7 @@ public class TracksFragment extends HomeBaseFragment implements TracksMvpView {
     @Subscribe
     public void onFavoriteClickedEvent(FavoriteClickedEvent event) {
         Timber.d("Favorite item is clicked " + event.getItem());
-        mPresenter.setFavoriteItem(event.getItem());
+        mPresenter.setFavoriteItem(event.getItem(), event.getPosition());
     }
 
     @Override

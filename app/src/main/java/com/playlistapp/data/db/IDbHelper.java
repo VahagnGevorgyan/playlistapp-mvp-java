@@ -14,6 +14,8 @@ public interface IDbHelper {
 
     Observable<Boolean> saveTrack(TrackItem trackItem);
 
+    Observable<Boolean> deleteTrack(TrackItem track);
+
     Observable<Boolean> saveTrackList(List<TrackItem> trackItems);
 
 }

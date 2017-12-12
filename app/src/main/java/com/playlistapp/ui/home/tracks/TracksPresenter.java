@@ -71,8 +71,30 @@ public class TracksPresenter<V extends TracksMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void setFavoriteItem(TrackItem item) {
+    public void setFavoriteItem(TrackItem item, int position) {
+        if (!isViewAttached()) {
+            return;
+        }
+        getMvpView().showProgressBar();
 
+        getCompositeDisposable().add(getDataManager()
+                .updateTrack(item, item.isFavorite())
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(aBoolean -> {
+                    Timber.d("Updating track item was successful " + aBoolean);
+
+                    getMvpView().hideProgressBar();
+                    getMvpView().trackItemUpdated(item, position);
+                }, throwable -> {
+                    Timber.e("Updating track item was failed " + throwable.getMessage());
+
+                    if (!isViewAttached()) {
+                        return;
+                    }
+                    getMvpView().hideProgressBar();
+                    getMvpView().showMessage(throwable.getMessage());
+                }));
     }
 
     /**

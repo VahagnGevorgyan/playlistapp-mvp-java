@@ -68,7 +68,10 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public Observable<Boolean> saveTrack(TrackItem trackItem) {
+    public Observable<Boolean> updateTrack(TrackItem trackItem, boolean remove) {
+        if (remove) {
+            return mIDbHelper.deleteTrack(trackItem);
+        }
         return mIDbHelper.saveTrack(trackItem);
     }
 

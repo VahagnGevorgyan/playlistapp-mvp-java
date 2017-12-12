@@ -2,11 +2,13 @@ package com.playlistapp.ui.adapter;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,6 +62,11 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
         }
     }
 
+    public void updateTrackItem(TrackItem item, int position) {
+        Timber.d("Updating TrackItem in position " + position);
+        mList.set(position, item);
+    }
+
     @Override
     public TrackViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.list_item_track, parent, false);
@@ -77,6 +84,9 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
                 && !item.getDuration().equals("0")) {
             holder.textViewDuration.setText(mContext.getString(R.string.str_track_time, item.getDuration()));
         }
+
+        holder.btnFavorite.setBackground(
+                ContextCompat.getDrawable(mContext, item.isFavorite() ? android.R.drawable.star_big_on : android.R.drawable.star_big_off));
 
         for (Image img :
                 item.getImageList()) {
@@ -122,6 +132,8 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.Trac
         TextView textViewArtist;
         @BindView(R.id.loadingBar)
         ProgressBar loadingBar;
+        @BindView(R.id.btnFavorite)
+        ImageButton btnFavorite;
 
         TrackViewHolder(View view) {
             super(view);

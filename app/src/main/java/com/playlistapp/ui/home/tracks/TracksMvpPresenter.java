@@ -10,5 +10,5 @@ public interface TracksMvpPresenter<V extends TracksMvpView> extends MvpPresente
 
     void nextTrackItems();
 
-    void setFavoriteItem(TrackItem item);
+    void setFavoriteItem(TrackItem item, int position);
 }

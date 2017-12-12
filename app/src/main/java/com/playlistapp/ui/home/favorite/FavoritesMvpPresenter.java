@@ -10,5 +10,5 @@ public interface FavoritesMvpPresenter<V extends FavoritesMvpView> extends MvpPr
 
     void nextItems();
 
-    void setFavoriteItem(TrackItem item);
+    void setFavoriteItem(TrackItem item, int position);
 }

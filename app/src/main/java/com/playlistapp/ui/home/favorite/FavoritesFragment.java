@@ -134,7 +134,7 @@ public class FavoritesFragment extends HomeBaseFragment implements FavoritesMvpV
     @Subscribe
     public void onFavoriteClickedEvent(FavoriteClickedEvent event) {
         Timber.d("Favorite item is clicked " + event.getItem());
-        mPresenter.setFavoriteItem(event.getItem());
+        mPresenter.setFavoriteItem(event.getItem(), event.getPosition());
     }
 
     @Override

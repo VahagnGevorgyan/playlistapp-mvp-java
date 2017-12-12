@@ -28,7 +28,7 @@ public interface IDataManager {
 
     Observable<List<TrackItem>> getAllTracks();
 
-    Observable<Boolean> saveTrack(TrackItem trackItem);
+    Observable<Boolean> updateTrack(TrackItem trackItem, boolean remove);
 
     Observable<Boolean> saveTrackList(List<TrackItem> trackItems);
 
