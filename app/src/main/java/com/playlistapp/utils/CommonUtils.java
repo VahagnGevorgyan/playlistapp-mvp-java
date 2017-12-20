@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,9 +78,9 @@ public final class CommonUtils {
     public static void toast(Activity context, String toastText) {
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View toastView = inflater.inflate(R.layout.layout_toast, (ViewGroup) context.findViewById(R.id.layoutToast), false);
+        View toastView = inflater.inflate(R.layout.layout_toast, context.findViewById(R.id.layoutToast), false);
 
-        TextView textViewToast = (TextView) toastView.findViewById(R.id.textViewToast);
+        TextView textViewToast = toastView.findViewById(R.id.textViewToast);
         textViewToast.setText(toastText);
 
         Toast toast = new Toast(context);
@@ -92,7 +91,7 @@ public final class CommonUtils {
     }
 
     /**
-     * Method for calling
+     * Method for phone calling
      * @param context - Context
      * @param phoneNumber - Phone number
      */

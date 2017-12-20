@@ -23,26 +23,8 @@ public class AppSettingsHelper implements IAppSettingsHelper {
         return (GeneralSettings)components.get(GeneralSettings.class);
     }
 
-    @Override
-    public ProfileSettings profile() {
-        return (ProfileSettings)components.get(ProfileSettings.class);
-    }
-
-    @Override
-    public SearchSettings search() {
-        return (SearchSettings )components.get(SearchSettings.class);
-    }
-
-    @Override
-    public CitySettings city() {
-        return (CitySettings)components.get(CitySettings.class);
-    }
-
     private void initializeComponents(AppPreferences prefs) {
         components = new HashMap<>();
         components.put(GeneralSettings.class, new GeneralSettings(prefs));
-        components.put(ProfileSettings.class, new ProfileSettings(prefs));
-        components.put(SearchSettings.class, new SearchSettings(prefs));
-        components.put(CitySettings.class, new CitySettings(prefs));
     }
 }
