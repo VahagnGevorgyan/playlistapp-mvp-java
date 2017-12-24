@@ -31,42 +31,4 @@ public interface IDataManager {
     Observable<Boolean> updateTrack(TrackItem trackItem, boolean remove);
 
     Observable<Boolean> saveTrackList(List<TrackItem> trackItems);
-
-    void setUserAsLoggedOut();
-
-
-    void setCurrentUserLoggedInMode(LoggedInMode loggedInMode);
-
-    void setUserId(int userId);
-
-    void setAuthToken(String authToken);
-
-    boolean isUserRegistered();
-
-    boolean isUserRegisterCompleted();
-
-    void setRegisterCompleted(boolean isRegisterCompleted);
-
-    void setRegisterKey(String key);
-
-    int getCurrentUserLoggedInMode();
-
-
-    enum LoggedInMode {
-
-        LOGGED_IN_MODE_LOGGED_OUT(0),
-        LOGGED_IN_MODE_GOOGLE(1),
-        LOGGED_IN_MODE_FB(2),
-        LOGGED_IN_MODE_SERVER(3);
-
-        private final int mType;
-
-        LoggedInMode(int type) {
-            mType = type;
-        }
-
-        public int getType() {
-            return mType;
-        }
-    }
 }

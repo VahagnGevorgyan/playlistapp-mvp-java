@@ -23,8 +23,14 @@ public class AppSettingsHelper implements IAppSettingsHelper {
         return (GeneralSettings)components.get(GeneralSettings.class);
     }
 
+    @Override
+    public SearchSettings search() {
+        return (SearchSettings)components.get(SearchSettings.class);
+    }
+
     private void initializeComponents(AppPreferences prefs) {
         components = new HashMap<>();
         components.put(GeneralSettings.class, new GeneralSettings(prefs));
+        components.put(SearchSettings.class, new SearchSettings(prefs));
     }
 }
