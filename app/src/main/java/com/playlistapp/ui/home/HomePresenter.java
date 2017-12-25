@@ -37,6 +37,7 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V>
         if (!isViewAttached()) {
             return;
         }
+
         
 
         // TODO: Remove after testing
